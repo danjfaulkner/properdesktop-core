@@ -1,0 +1,9 @@
+[Unit]
+Description=ProperDesktop camera and microphone switches
+
+[Service]
+Type=dbus
+BusName=org.properdesktop.Privacy
+ExecStart=@CMAKE_INSTALL_FULL_LIBEXECDIR@/properdesktop-privacy
+StateDirectory=properdesktop-privacy
+Restart=on-failure

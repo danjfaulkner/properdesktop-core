@@ -1,5 +1,5 @@
-project(cutefish-appruntime)
-set(TARGET cutefish-appruntime)
+project(properdesktop-appruntime)
+set(TARGET properdesktop-appruntime)
 
 pkg_check_modules(Systemd REQUIRED IMPORTED_TARGET libsystemd)
 
@@ -15,8 +15,8 @@ set(SOURCES
 
 add_executable(${TARGET} ${SOURCES})
 target_link_libraries(${TARGET}
-    cutefish-core-common
-    Cutefish::ToolkitBase
+    properdesktop-core-common
+    ProperDesktop::ToolkitBase
     PkgConfig::Systemd
 )
 

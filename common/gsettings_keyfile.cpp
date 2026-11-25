@@ -9,7 +9,7 @@
 #include "base/file.h"
 #include "base/paths.h"
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 static std::string trimmed(std::string_view text)
 {
@@ -25,7 +25,7 @@ static std::string trimmed(std::string_view text)
 static std::vector<std::string> readLines(const std::string& path)
 {
     std::vector<std::string> lines;
-    const std::optional<std::string> contents = cutefish::base::file::read(path);
+    const std::optional<std::string> contents = properdesktop::base::file::read(path);
     if (!contents)
         return lines;
     size_t start = 0;
@@ -140,7 +140,7 @@ bool writeGroup(const std::string& path, const std::string& group, const Group& 
     }
     contents += '\n';
     // GLib and KConfig replace these files atomically too; a partial write would read as empty.
-    return cutefish::base::file::writeAtomically(path, contents);
+    return properdesktop::base::file::writeAtomically(path, contents);
 }
 
 } // namespace keyfile
@@ -225,7 +225,7 @@ namespace gsettings {
 
 std::string path()
 {
-    return cutefish::base::paths::configHome() + "/glib-2.0/settings/keyfile";
+    return properdesktop::base::paths::configHome() + "/glib-2.0/settings/keyfile";
 }
 
 std::string toString(const std::string& text, const std::string& fallback)
@@ -349,4 +349,4 @@ bool writeGroup(const std::string& group, const std::map<std::string, Value>& va
 
 } // namespace gsettings
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

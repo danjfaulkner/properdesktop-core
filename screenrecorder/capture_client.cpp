@@ -155,7 +155,7 @@ const wl_output_listener CaptureClientListeners::s_outputListener = {
 const zxdg_output_v1_listener CaptureClientListeners::s_xdgOutputListener = {
         [](void *data, zxdg_output_v1 *, int32_t x, int32_t y) {
             static_cast<CaptureClient::Output *>(data)->logicalGeometry.moveTopLeft(
-                    cutefish::base::Point(x, y));
+                    properdesktop::base::Point(x, y));
         },
         [](void *data, zxdg_output_v1 *, int32_t width, int32_t height) {
             static_cast<CaptureClient::Output *>(data)->logicalGeometry.setSize(width, height);

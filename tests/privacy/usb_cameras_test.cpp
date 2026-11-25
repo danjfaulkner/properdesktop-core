@@ -24,8 +24,8 @@ static void writeFile(const std::string &path, const std::string &contents)
 
 static std::string readFile(const std::string &path)
 {
-    const auto contents = cutefish::base::file::read(path);
-    return contents ? std::string(cutefish::base::strings::trimmed(*contents)) : std::string();
+    const auto contents = properdesktop::base::file::read(path);
+    return contents ? std::string(properdesktop::base::strings::trimmed(*contents)) : std::string();
 }
 
 class UsbCamerasTest : public ::testing::Test
@@ -54,7 +54,7 @@ protected:
 
     std::string probe() const { return m_sysfs.path() + "/bus/usb/drivers_probe"; }
 
-    cutefish::base::file::TemporaryDirectory m_sysfs {fs::temp_directory_path().string()};
+    properdesktop::base::file::TemporaryDirectory m_sysfs {fs::temp_directory_path().string()};
 };
 
 TEST_F(UsbCamerasTest, offTouchesOnlyVideoInterfaces)

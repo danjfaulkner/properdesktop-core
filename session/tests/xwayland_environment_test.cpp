@@ -11,18 +11,18 @@
 #include "testutil.h"
 #include "xwaylandenvironment.h"
 
-using cutefish::base::EventLoop;
-using cutefish::base::file::TemporaryDirectory;
+using properdesktop::base::EventLoop;
+using properdesktop::base::file::TemporaryDirectory;
 using sessiontest::runUntil;
 
-namespace json = cutefish::base::json;
+namespace json = properdesktop::base::json;
 
 static void publish(const std::string& path, const std::string& display, const std::string& authority)
 {
     json::Value document = json::Value::object();
     document.insert("DISPLAY", display);
     document.insert("XAUTHORITY", authority);
-    ASSERT_TRUE(cutefish::base::file::writeAtomically(path, document.serialize(false)));
+    ASSERT_TRUE(properdesktop::base::file::writeAtomically(path, document.serialize(false)));
 }
 
 static bool isEmptyVariable(const char* name)
@@ -101,29 +101,29 @@ TEST(XwaylandEnvironment, malformedAndTimeout)
 
 static std::string testCompositor()
 {
-    return variable("CUTEFISH_TEST_COMPOSITOR");
+    return variable("PROPERDESKTOP_TEST_COMPOSITOR");
 }
 
 TEST(XwaylandEnvironment, realCompositor)
 {
     const std::string binary = testCompositor();
     if (binary.empty())
-        GTEST_SKIP() << "Set CUTEFISH_TEST_COMPOSITOR for real Xwayland integration";
+        GTEST_SKIP() << "Set PROPERDESKTOP_TEST_COMPOSITOR for real Xwayland integration";
     EventLoop loop;
     TemporaryDirectory runtime(sessiontest::temporaryParent());
     XwaylandEnvironment environment;
     Resolved resolved;
     track(environment, resolved);
-    cutefish::base::Process compositor(&loop);
-    cutefish::core::Environment childEnvironment = cutefish::core::processEnvironment();
+    properdesktop::base::Process compositor(&loop);
+    properdesktop::core::Environment childEnvironment = properdesktop::core::processEnvironment();
     childEnvironment["XDG_RUNTIME_DIR"] = runtime.path();
-    compositor.setEnvironment(cutefish::core::environmentEntries(childEnvironment));
+    compositor.setEnvironment(properdesktop::core::environmentEntries(childEnvironment));
     ASSERT_TRUE(compositor.start(binary, {"--no-drm", "--socket", "session-test", "--xwayland-shm",
                                           "--xwayland-ready-file", environment.readinessFile()}));
     environment.waitForReady(10000);
     ASSERT_TRUE(runUntil(loop, [&] { return resolved.results.size() == 1; }, 12000));
     EXPECT_TRUE(resolved.results.front()) << compositor.standardError();
-    cutefish::base::Process client(&loop);
+    properdesktop::base::Process client(&loop);
     int clientCode = -1;
     client.onFinished = [&clientCode](int code, bool) { clientCode = code; };
     ASSERT_TRUE(client.start("xdpyinfo"));
@@ -140,16 +140,16 @@ TEST(XwaylandEnvironment, disabledXwaylandKeepsNativeCompositor)
 {
     const std::string binary = testCompositor();
     if (binary.empty())
-        GTEST_SKIP() << "Set CUTEFISH_TEST_COMPOSITOR for real integration";
+        GTEST_SKIP() << "Set PROPERDESKTOP_TEST_COMPOSITOR for real integration";
     EventLoop loop;
     TemporaryDirectory runtime(sessiontest::temporaryParent());
     XwaylandEnvironment environment;
     Resolved resolved;
     track(environment, resolved);
-    cutefish::base::Process compositor(&loop);
-    cutefish::core::Environment childEnvironment = cutefish::core::processEnvironment();
+    properdesktop::base::Process compositor(&loop);
+    properdesktop::core::Environment childEnvironment = properdesktop::core::processEnvironment();
     childEnvironment["XDG_RUNTIME_DIR"] = runtime.path();
-    compositor.setEnvironment(cutefish::core::environmentEntries(childEnvironment));
+    compositor.setEnvironment(properdesktop::core::environmentEntries(childEnvironment));
     ASSERT_TRUE(compositor.start(binary, {"--no-drm", "--socket", "session-test", "--no-xwayland",
                                           "--xwayland-ready-file", environment.readinessFile()}));
     ASSERT_TRUE(runUntil(loop, [&] { return std::filesystem::exists(runtime.path() + "/session-test"); }, 3000));

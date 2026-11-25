@@ -14,11 +14,11 @@
 #include <tuple>
 #include <unistd.h>
 
-namespace dbus = cutefish::base::dbus;
+namespace dbus = properdesktop::base::dbus;
 
-static const cutefish::base::LogCategory kLog("cutefish.privacy");
+static const properdesktop::base::LogCategory kLog("properdesktop.privacy");
 
-static constexpr char kAction[] = "org.cutefish.privacy.switch-devices";
+static constexpr char kAction[] = "org.properdesktop.privacy.switch-devices";
 static const char *const kCamera = "camera";
 static const char *const kMicrophone = "microphone";
 
@@ -51,7 +51,7 @@ PrivacyService::PrivacyService(const std::string &stateDirectory, std::chrono::m
 bool PrivacyService::exportTo(dbus::Connection *bus)
 {
     m_bus = bus;
-    m_object = std::make_unique<dbus::Object>(bus, "/org/cutefish/Privacy", "org.cutefish.Privacy");
+    m_object = std::make_unique<dbus::Object>(bus, "/org/properdesktop/Privacy", "org.properdesktop.Privacy");
     m_object->addProperty("cameraEnabled", [this] { return cameraEnabled(); });
     m_object->addProperty("microphoneEnabled", [this] { return microphoneEnabled(); });
     m_object->addMethod(
@@ -114,7 +114,7 @@ void PrivacyService::authorize(dbus::MethodCall &call, std::function<void()> app
 
     // No timeout: an administrator may take a while over the password.
     ++m_pendingAuthorizations;
-    cutefish::core::callDetached(
+    properdesktop::core::callDetached(
             m_bus, check,
             [this, request, apply](const dbus::Reply &reply) mutable {
                 --m_pendingAuthorizations;
@@ -125,7 +125,7 @@ void PrivacyService::authorize(dbus::MethodCall &call, std::function<void()> app
                 if (reply.read(result))
                     authorized = std::get<0>(result);
                 else
-                    CF_WARNING(kLog) << "cutefish-privacy: polkit check failed:" << reply.error().message;
+                    CF_WARNING(kLog) << "properdesktop-privacy: polkit check failed:" << reply.error().message;
 
                 if (!authorized) {
                     request.replyError("org.freedesktop.DBus.Error.AccessDenied",
@@ -177,7 +177,7 @@ void PrivacyService::setFlag(const char *device, bool off)
 
     const int fd = ::open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0666);
     if (fd < 0) {
-        CF_WARNING(kLog) << "cutefish-privacy: cannot write" << path << std::strerror(errno);
+        CF_WARNING(kLog) << "properdesktop-privacy: cannot write" << path << std::strerror(errno);
         return;
     }
     ::close(fd);

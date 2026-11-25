@@ -12,7 +12,7 @@
 #include "battery/batterywarning.h"
 #include "support/wait.h"
 
-using namespace cutefish::base;
+using namespace properdesktop::base;
 using namespace std::chrono_literals;
 
 static const char displayDevice[] = "/org/freedesktop/UPower/devices/DisplayDevice";

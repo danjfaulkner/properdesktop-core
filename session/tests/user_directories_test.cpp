@@ -11,7 +11,7 @@
 #include "testutil.h"
 #include "userdirectories.h"
 
-using cutefish::base::file::TemporaryDirectory;
+using properdesktop::base::file::TemporaryDirectory;
 namespace fs = std::filesystem;
 
 static std::vector<std::string> directoryNames(const std::string& path)
@@ -46,9 +46,9 @@ TEST(UserDirectories, firstLogin)
               "XDG_VIDEOS_DIR=\"$HOME/Videos\"\n");
 
     // What the rest of the desktop reads back, $HOME being the user's home.
-    EXPECT_EQ(cutefish::base::paths::userDirectory(cutefish::base::paths::UserDirectory::Downloads,
+    EXPECT_EQ(properdesktop::base::paths::userDirectory(properdesktop::base::paths::UserDirectory::Downloads,
                                                    config + "/user-dirs.dirs"),
-              cutefish::base::paths::home() + "/Downloads");
+              properdesktop::base::paths::home() + "/Downloads");
 }
 
 TEST(UserDirectories, existingFileIsKept)

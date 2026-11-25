@@ -22,9 +22,9 @@ class PolKitAgentListener
 {
 public:
     // a(sa{sv}): each identity's kind and details.
-    using Identity = std::tuple<std::string, cutefish::base::dbus::VariantMap>;
+    using Identity = std::tuple<std::string, properdesktop::base::dbus::VariantMap>;
 
-    explicit PolKitAgentListener(cutefish::base::dbus::Connection *bus);
+    explicit PolKitAgentListener(properdesktop::base::dbus::Connection *bus);
     ~PolKitAgentListener();
 
     PolKitAgentListener(const PolKitAgentListener &) = delete;
@@ -46,10 +46,10 @@ private:
         std::string message;
         std::string cookie;
         std::string user;
-        cutefish::base::dbus::MethodCall call;
+        properdesktop::base::dbus::MethodCall call;
     };
 
-    void beginAuthentication(cutefish::base::dbus::MethodCall &call);
+    void beginAuthentication(properdesktop::base::dbus::MethodCall &call);
     void cancelAuthentication(const std::string &cookie);
 
     bool sendRegistration();
@@ -68,10 +68,10 @@ private:
     void onCompleted(bool gainedAuthorization);
     void onDialogAccepted();
 
-    cutefish::base::dbus::Connection *m_bus;
+    properdesktop::base::dbus::Connection *m_bus;
     std::string m_objectPath;
-    std::unique_ptr<cutefish::base::dbus::Object> m_object;
-    cutefish::base::dbus::Match m_ownerChanged;
+    std::unique_ptr<properdesktop::base::dbus::Object> m_object;
+    properdesktop::base::dbus::Match m_ownerChanged;
 
     // polkitd sends requests concurrently; the first one owns the dialog.
     std::deque<Request> m_queue;

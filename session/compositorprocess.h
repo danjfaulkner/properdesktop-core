@@ -27,8 +27,8 @@ private:
     void closeReadyPipe();
     void fail(const std::string& reason);
     void readReady();
-    cutefish::base::Process m_process;
-    cutefish::base::Timer m_timeout;
+    properdesktop::base::Process m_process;
+    properdesktop::base::Timer m_timeout;
     int m_readFd = -1;
     int m_readWatch = 0;
     bool m_ready = false;

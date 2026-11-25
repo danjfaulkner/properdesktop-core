@@ -40,7 +40,7 @@ protected:
 
     std::string path(const std::string &name) const { return m_root.path() + '/' + name; }
 
-    cutefish::base::file::TemporaryDirectory m_root {fs::temp_directory_path().string()};
+    properdesktop::base::file::TemporaryDirectory m_root {fs::temp_directory_path().string()};
 };
 
 TEST_F(ChromiumSwitchesTest, switchFollowsTheProgram)

@@ -15,7 +15,7 @@
 #include "ui/theme.h"
 #include "ui/window.h"
 
-using namespace cutefish::ui;
+using namespace properdesktop::ui;
 
 static constexpr double kWidth = 420;
 static constexpr double kMargin = 16;

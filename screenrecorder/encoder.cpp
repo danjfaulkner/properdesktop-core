@@ -23,11 +23,11 @@ extern "C" {
 #include <libswscale/swscale.h>
 }
 
-using cutefish::base::Point;
-using cutefish::base::Rect;
-using cutefish::base::Size;
+using properdesktop::base::Point;
+using properdesktop::base::Rect;
+using properdesktop::base::Size;
 
-static const cutefish::base::LogCategory cfRecorder("cutefish.recorder");
+static const properdesktop::base::LogCategory cfRecorder("properdesktop.recorder");
 
 static constexpr AVRational kVideoTimeBase {1, 90000};
 // H.264 levels and the GPU encoders stop around here.

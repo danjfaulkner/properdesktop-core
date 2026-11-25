@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=org.properdesktop.Locales
+Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/properdesktop-locales
+User=root
+SystemdService=properdesktop-locales.service

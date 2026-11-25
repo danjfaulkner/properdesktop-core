@@ -67,7 +67,7 @@ private:
     void startCoreProcess(const std::string& program, const std::vector<std::string>& arguments = {});
     void stopRestarts();
     void stopShellAndDaemons();
-    void stopProcesses(std::map<std::string, std::unique_ptr<cutefish::base::Process>>& processes);
+    void stopProcesses(std::map<std::string, std::unique_ptr<properdesktop::base::Process>>& processes);
 
 private:
     std::unique_ptr<XwaylandEnvironment> m_xwaylandEnvironment;
@@ -75,15 +75,15 @@ private:
     std::unique_ptr<ShellConnection> m_shellConnection;
     std::unique_ptr<ShellProcess> m_shellProcess;
     std::unique_ptr<RestartPolicy> m_shellRestart;
-    cutefish::base::dbus::NameWatch m_servicesWatch;
-    cutefish::base::Timer m_servicesTimeout;
-    cutefish::base::dbus::PendingCall m_quitAllCall;
-    cutefish::base::dbus::PendingCall m_applicationsCall;
-    cutefish::base::Timer m_applicationsPoll;
+    properdesktop::base::dbus::NameWatch m_servicesWatch;
+    properdesktop::base::Timer m_servicesTimeout;
+    properdesktop::base::dbus::PendingCall m_quitAllCall;
+    properdesktop::base::dbus::PendingCall m_applicationsCall;
+    properdesktop::base::Timer m_applicationsPoll;
     std::chrono::steady_clock::time_point m_applicationsDeadline;
-    cutefish::base::Subscription m_registryChanged;
-    cutefish::base::Timer m_autostartTimer;
-    cutefish::base::Timer m_exitTimer;
+    properdesktop::base::Subscription m_registryChanged;
+    properdesktop::base::Timer m_autostartTimer;
+    properdesktop::base::Timer m_exitTimer;
     std::vector<std::unique_ptr<Publisher>> m_publishers;
     bool m_started = false;
     bool m_compositorReady = false;
@@ -92,7 +92,7 @@ private:
     bool m_ending = false;
     std::string m_waylandSocket;
     std::string m_controlSocket;
-    std::map<std::string, std::unique_ptr<cutefish::base::Process>> m_coreProcesses;
+    std::map<std::string, std::unique_ptr<properdesktop::base::Process>> m_coreProcesses;
     std::map<std::string, std::unique_ptr<RestartPolicy>> m_restartPolicies;
 };
 

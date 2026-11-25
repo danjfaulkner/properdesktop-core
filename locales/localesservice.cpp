@@ -18,12 +18,12 @@
 #include <tuple>
 #include <unistd.h>
 
-namespace dbus = cutefish::base::dbus;
-namespace strings = cutefish::base::strings;
+namespace dbus = properdesktop::base::dbus;
+namespace strings = properdesktop::base::strings;
 
-static const cutefish::base::LogCategory kLog("cutefish.locales");
+static const properdesktop::base::LogCategory kLog("properdesktop.locales");
 
-static constexpr char kAction[] = "org.cutefish.locales.generate";
+static constexpr char kAction[] = "org.properdesktop.locales.generate";
 
 // polkit's Subject: a kind and its details.
 using PolkitSubject = std::tuple<std::string, dbus::VariantMap>;
@@ -85,7 +85,7 @@ LocalesService::~LocalesService() = default;
 bool LocalesService::exportTo(dbus::Connection *bus)
 {
     m_bus = bus;
-    m_object = std::make_unique<dbus::Object>(bus, "/org/cutefish/Locales", "org.cutefish.Locales");
+    m_object = std::make_unique<dbus::Object>(bus, "/org/properdesktop/Locales", "org.properdesktop.Locales");
     m_object->addMethod(
             "generate", "as", "", [this](dbus::MethodCall &call) { generate(call); }, {{"names"}, {}});
     return m_object->publish();
@@ -95,7 +95,7 @@ bool LocalesService::isSupported(const std::string &name) const
 {
     if (!isWellFormed(name))
         return false;
-    const std::optional<std::string> supported = cutefish::base::file::read(m_paths.supported);
+    const std::optional<std::string> supported = properdesktop::base::file::read(m_paths.supported);
     if (!supported)
         return false;
     bool listed = false;
@@ -122,7 +122,7 @@ bool LocalesService::isGenerated(const std::string &name) const
 
 bool LocalesService::enableInLocaleGen(const std::string &name) const
 {
-    const std::optional<std::string> contents = cutefish::base::file::read(m_paths.localeGen);
+    const std::optional<std::string> contents = properdesktop::base::file::read(m_paths.localeGen);
     if (!contents)
         return ::access(m_paths.localeGen.c_str(), F_OK) != 0;
 
@@ -144,17 +144,17 @@ bool LocalesService::enableInLocaleGen(const std::string &name) const
         lines.push_back(entry);
 
     // Replaced whole, so a reader never sees half of it.
-    const std::string temporary = m_paths.localeGen + ".cutefish-new";
+    const std::string temporary = m_paths.localeGen + ".properdesktop-new";
     const int fd = ::open(temporary.c_str(), O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644);
     if (fd < 0) {
-        CF_WARNING(kLog) << "cutefish-locales: cannot write" << temporary << std::strerror(errno);
+        CF_WARNING(kLog) << "properdesktop-locales: cannot write" << temporary << std::strerror(errno);
         return false;
     }
     const std::string text = strings::join(lines, "\n") + '\n';
     const bool written = ::write(fd, text.data(), text.size()) == ssize_t(text.size()) && ::fsync(fd) == 0;
     ::close(fd);
     if (!written || ::rename(temporary.c_str(), m_paths.localeGen.c_str()) != 0) {
-        CF_WARNING(kLog) << "cutefish-locales: cannot replace" << m_paths.localeGen << std::strerror(errno);
+        CF_WARNING(kLog) << "properdesktop-locales: cannot replace" << m_paths.localeGen << std::strerror(errno);
         ::unlink(temporary.c_str());
         return false;
     }
@@ -189,7 +189,7 @@ void LocalesService::generate(dbus::MethodCall &call)
     check.append(subject, std::string(kAction), std::map<std::string, std::string>(), uint32_t(0), std::string());
 
     ++m_pendingAuthorizations;
-    cutefish::core::callDetached(
+    properdesktop::core::callDetached(
             m_bus, check,
             [this, request, names](const dbus::Reply &reply) mutable {
                 --m_pendingAuthorizations;
@@ -200,7 +200,7 @@ void LocalesService::generate(dbus::MethodCall &call)
                 if (reply.read(result))
                     authorized = std::get<0>(result);
                 else
-                    CF_WARNING(kLog) << "cutefish-locales: polkit check failed:" << reply.error().message;
+                    CF_WARNING(kLog) << "properdesktop-locales: polkit check failed:" << reply.error().message;
 
                 if (!authorized) {
                     request.replyError("org.freedesktop.DBus.Error.AccessDenied", "Not authorized to generate locales");
@@ -237,14 +237,14 @@ void LocalesService::runNext()
     }
     arguments.push_back(name);
 
-    m_localedef = std::make_unique<cutefish::base::Process>();
+    m_localedef = std::make_unique<properdesktop::base::Process>();
     // localedef exits non-zero for warnings it was told to ignore; what it
     // wrote decides.
     m_localedef->onFinished = [this, name](int, bool) {
-        cutefish::base::EventLoop::current()->post([this, name] {
+        properdesktop::base::EventLoop::current()->post([this, name] {
             m_localedef.reset();
             if (!isGenerated(name)) {
-                CF_WARNING(kLog) << "cutefish-locales: localedef did not generate" << name;
+                CF_WARNING(kLog) << "properdesktop-locales: localedef did not generate" << name;
                 finishJob(false);
                 return;
             }
@@ -264,7 +264,7 @@ void LocalesService::finishJob(bool succeeded)
     if (succeeded)
         job.call.reply();
     else
-        job.call.replyError("org.cutefish.Locales.Error.Failed", "The locales could not be generated");
+        job.call.replyError("org.properdesktop.Locales.Error.Failed", "The locales could not be generated");
     m_idleTimer.start();
     runNext();
 }

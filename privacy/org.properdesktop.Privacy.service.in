@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=org.properdesktop.Privacy
+Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/properdesktop-privacy
+User=root
+SystemdService=properdesktop-privacy.service

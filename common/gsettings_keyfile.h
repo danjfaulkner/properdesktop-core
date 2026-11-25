@@ -8,7 +8,7 @@
 #include <variant>
 #include <vector>
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 // Line-preserving access to INI-style files that several programs share, such
 // as GLib's GSettings keyfile. Lines this code does not touch stay byte-identical.
@@ -47,4 +47,4 @@ std::string stringListValue(const std::vector<std::string>& values);
 
 } // namespace gsettings
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

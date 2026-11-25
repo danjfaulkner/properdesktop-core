@@ -1,8 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Reion Wong <reionwong@gmail.com>
 // SPDX-License-Identifier: BSD-3-Clause
 
-#ifndef CUTEFISH_RECORDER_TASK_THREAD_H
-#define CUTEFISH_RECORDER_TASK_THREAD_H
+#ifndef PROPERDESKTOP_RECORDER_TASK_THREAD_H
+#define PROPERDESKTOP_RECORDER_TASK_THREAD_H
 
 #include <condition_variable>
 #include <deque>
@@ -75,4 +75,4 @@ private:
     bool m_quit = false;
 };
 
-#endif // CUTEFISH_RECORDER_TASK_THREAD_H
+#endif // PROPERDESKTOP_RECORDER_TASK_THREAD_H

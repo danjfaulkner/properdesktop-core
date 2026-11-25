@@ -12,8 +12,8 @@
 #include "base/strings.h"
 
 namespace fs = std::filesystem;
-namespace base = cutefish::base;
-namespace strings = cutefish::base::strings;
+namespace base = properdesktop::base;
+namespace strings = properdesktop::base::strings;
 
 static std::vector<std::string> desktopFiles(const std::string& directory)
 {
@@ -37,8 +37,8 @@ static bool isExecutableFile(const std::string& path)
 
 bool isStartedBySession(const std::string& executable)
 {
-    static const char* const programs[] = {"cutefish-services", "cutefish-appruntime", "cutefish-filemanager",
-                                           "cutefish-compositor", "cutefish-polkit-agent", "xdg-user-dirs-update"};
+    static const char* const programs[] = {"properdesktop-services", "properdesktop-appruntime", "properdesktop-filemanager",
+                                           "properdesktop-compositor", "properdesktop-polkit-agent", "xdg-user-dirs-update"};
     return std::find(std::begin(programs), std::end(programs), executable) != std::end(programs);
 }
 

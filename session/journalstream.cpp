@@ -44,7 +44,7 @@ void useOwnJournalStream(const std::string &identifier)
     ::close(stream);
 }
 
-bool startWithOwnJournalStream(cutefish::base::Process &process, const std::string &program,
+bool startWithOwnJournalStream(properdesktop::base::Process &process, const std::string &program,
                                const std::vector<std::string> &arguments)
 {
     const int stream = openStream(std::filesystem::path(program).filename().string());

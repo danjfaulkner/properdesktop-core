@@ -41,6 +41,6 @@ void UserDirectories::ensure(const std::string& home, const std::string& configH
         contents += std::string("XDG_") + key + "_DIR=\"$HOME/" + name + "\"\n";
     }
 
-    if (!cutefish::base::file::writeAtomically(file, contents))
+    if (!properdesktop::base::file::writeAtomically(file, contents))
         CF_WARNING(sessionLog()) << "Could not write" << file;
 }

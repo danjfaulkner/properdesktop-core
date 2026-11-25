@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Proper Desktop (Wayland)
+Comment=Proper Desktop session
+Exec=/usr/bin/properdesktop-wayland-session
+TryExec=/usr/bin/properdesktop-compositor
+Type=Application
+DesktopNames=ProperDesktop;
+X-GDM-SessionRegisters=true

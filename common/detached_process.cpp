@@ -14,7 +14,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 void dropOomProtection(const char* path)
 {
@@ -116,4 +116,4 @@ pid_t startDetached(const std::vector<std::string>& command, const std::string& 
     return pid;
 }
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

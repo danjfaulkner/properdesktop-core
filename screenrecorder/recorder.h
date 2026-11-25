@@ -1,5 +1,5 @@
-#ifndef CUTEFISH_RECORDER_RECORDER_H
-#define CUTEFISH_RECORDER_RECORDER_H
+#ifndef PROPERDESKTOP_RECORDER_RECORDER_H
+#define PROPERDESKTOP_RECORDER_RECORDER_H
 
 #include "capture_session.h"
 #include "task_thread.h"
@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-namespace cutefish::base {
+namespace properdesktop::base {
 class EventLoop;
 }
 
@@ -29,7 +29,7 @@ public:
         //! The output to record, by wl_output name.
         std::string output;
         //! Part of that output in global logical coordinates; empty for all of it.
-        cutefish::base::Rect region;
+        properdesktop::base::Rect region;
         //! Or a window, by its ext_foreign_toplevel_handle_v1 identifier.
         std::string window;
         bool cursor = false;
@@ -39,7 +39,7 @@ public:
         std::string path;
     };
 
-    Recorder(const Options &options, cutefish::base::EventLoop &loop);
+    Recorder(const Options &options, properdesktop::base::EventLoop &loop);
     ~Recorder();
 
     Recorder(const Recorder &) = delete;
@@ -57,7 +57,7 @@ private:
     void dispatch();
     void captureNext();
     //! The part of a frame of this size that is recorded.
-    cutefish::base::Rect cropFor(const cutefish::base::Size &frame) const;
+    properdesktop::base::Rect cropFor(const properdesktop::base::Size &frame) const;
     void onFrame(const CaptureSession::Frame &frame);
     void onEncoderFinished(bool ok, const std::string &error);
     std::string partialPath() const;
@@ -65,7 +65,7 @@ private:
     void toMain(std::function<void()> task);
 
     Options m_options;
-    cutefish::base::EventLoop &m_loop;
+    properdesktop::base::EventLoop &m_loop;
     std::shared_ptr<int> m_alive = std::make_shared<int>(0);
     const std::weak_ptr<int> m_lifetime = m_alive;
     wl_display *m_display = nullptr;
@@ -80,9 +80,9 @@ private:
     std::unique_ptr<AudioCapture> m_audio;
     TaskThread m_encoderThread;
     std::unique_ptr<Encoder> m_encoder;
-    cutefish::base::Rect m_outputGeometry;
+    properdesktop::base::Rect m_outputGeometry;
     bool m_stopping = false;
     bool m_done = false;
 };
 
-#endif // CUTEFISH_RECORDER_RECORDER_H
+#endif // PROPERDESKTOP_RECORDER_RECORDER_H

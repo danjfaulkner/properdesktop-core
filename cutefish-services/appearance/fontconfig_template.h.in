@@ -1,2 +1,0 @@
-// Generated from fontconfig.conf.
-static const char kFontConfigTemplate[] = R"cutefish(@FONTCONFIG_TEMPLATE@)cutefish";

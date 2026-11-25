@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: cutefish-core\n"
-"Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
+"Project-Id-Version: properdesktop-core\n"
+"Report-Msgid-Bugs-To: https://github.com/danjfaulkner\n"
 "POT-Creation-Date: 2026-11-22 18:34+0800\n"
 "PO-Revision-Date: 2026-10-20 09:33+0800\n"
 "Last-Translator: \n"
@@ -12,255 +12,255 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "Calculating…"
 msgstr "計算中…"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{time} until fully charged"
 msgstr "フル充電まで {time}"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{time} remaining"
 msgstr "残り {time}"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "Fully charged."
 msgstr "フル充電済み。"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "Charging paused at {percent}%"
 msgstr "{percent}% で充電を一時停止中"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "Not charging"
 msgstr "充電していません"
 
 #. TRANSLATORS: days in a short battery time such as "1d 2h 5m".
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{n}d"
 msgstr "{n} 日"
 
 #. TRANSLATORS: hours in a short battery time such as "2h 5m".
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{n}h"
 msgstr "{n} 時間"
 
 #. TRANSLATORS: minutes in a short battery time such as "2h 5m".
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{n}m"
 msgstr "{n} 分"
 
 #. TRANSLATORS: when the battery was last fully charged, under a minute ago.
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "now"
 msgstr "今"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{time} ago"
 msgstr "{time}前"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Low Battery"
 msgstr "バッテリー残量低下"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Battery Critically Low"
 msgstr "バッテリー残量がわずかです"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Battery Empty"
 msgstr "バッテリー切れ"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 #, python-brace-format
 msgid "{percent}% of battery remaining ({time})."
 msgstr "バッテリー残量は {percent}% です（{time}）。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 #, python-brace-format
 msgid "{percent}% of battery remaining."
 msgstr "バッテリー残量は {percent}% です。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Save your work and connect to power. The computer will shut down when the battery is nearly empty."
 msgstr "作業内容を保存して、電源に接続してください。バッテリーがほぼなくなると、コンピュータはシステム終了します。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Connect to power. The computer will hibernate when the battery is nearly empty."
 msgstr "電源に接続してください。バッテリーがほぼなくなると、コンピュータは休止状態になります。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Save your work and connect to power. The computer will go to sleep when the battery is nearly empty."
 msgstr "作業内容を保存して、電源に接続してください。バッテリーがほぼなくなると、コンピュータはスリープします。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Connect to power soon."
 msgstr "早めに電源に接続してください。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "The computer is about to shut down. Connect to power to keep it running."
 msgstr "コンピュータはまもなくシステム終了します。使い続けるには電源に接続してください。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "The computer is about to hibernate. Connect to power to keep it running."
 msgstr "コンピュータはまもなく休止状態になります。使い続けるには電源に接続してください。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "The computer is about to go to sleep. Connect to power to keep it running."
 msgstr "コンピュータはまもなくスリープします。使い続けるには電源に接続してください。"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Connect to power now."
 msgstr "今すぐ電源に接続してください。"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Install"
 msgstr "インストール"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "OK"
 msgstr "OK"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 #, python-brace-format
 msgid "To open “{name}”, Reef has to be downloaded and installed."
 msgstr "「{name}」を開くには、Reef をダウンロードしてインストールする必要があります。"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Installing…"
 msgstr "インストール中…"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Downloading…"
 msgstr "ダウンロード中…"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Looking for Reef…"
 msgstr "Reef を検索中…"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Reef is not available for this computer."
 msgstr "このコンピュータでは Reef を利用できません。"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Reef could not be installed."
 msgstr "Reef をインストールできませんでした。"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Stop"
 msgstr "停止"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Install Reef"
 msgstr "Reef をインストール"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 #, python-brace-format
 msgid "“{name}” quit unexpectedly"
 msgstr "「{name}」が予期せず終了しました"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "Close"
 msgstr "閉じる"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "Reopen"
 msgstr "再度開く"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 #, python-brace-format
 msgid "Reason: {reason}"
 msgstr "理由: {reason}"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "It is restarted automatically."
 msgstr "自動的に再起動されます。"
 
-#: cutefish-services/crash/crashmanager.cpp
+#: properdesktop-services/crash/crashmanager.cpp
 msgid "Application Runtime"
 msgstr "アプリケーションランタイム"
 
-#: cutefish-services/locale/language.cpp
+#: properdesktop-services/locale/language.cpp
 msgid "Some applications may need to be restarted for the change to take effect."
 msgstr "変更を反映するには、一部のアプリケーションの再起動が必要な場合があります。"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 #, python-brace-format
 msgid "Share your screen with “{name}”"
 msgstr "画面を「{name}」と共有"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Choose a display or a window. What is shown on it will be visible to the application until it stops sharing."
 msgstr "ディスプレイまたはウインドウを選択してください。共有を停止するまで、そこに表示される内容がアプリケーションから見えるようになります。"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Choose a window. Its contents will be visible to the application until it stops sharing."
 msgstr "ウインドウを選択してください。共有を停止するまで、その内容がアプリケーションから見えるようになります。"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Choose a display. Everything shown on it, including other windows, will be visible to the application until it stops sharing."
 msgstr "ディスプレイを選択してください。共有を停止するまで、ほかのウインドウを含め、そこに表示されるすべての内容がアプリケーションから見えるようになります。"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Share"
 msgstr "共有"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Windows"
 msgstr "ウインドウ"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Displays"
 msgstr "ディスプレイ"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Always allow this app"
 msgstr "このアプリを常に許可"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Let “An app” control this computer?"
 msgstr "「アプリ」にこのコンピュータの操作を許可しますか?"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 #, python-brace-format
 msgid "Let “{name}” control this computer?"
 msgstr "「{name}」にこのコンピュータの操作を許可しますか?"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "It will see your screen and use the pointer and keyboard until you stop it with the Stop button in the menu bar. Using the pointer or keyboard yourself pauses it, and it cannot answer system dialogs like this one."
 msgstr "メニューバーの停止ボタンで停止するまで、画面を見て、ポインタとキーボードを操作します。自分でポインタやキーボードを使うと一時停止します。また、このようなシステムダイアログには応答できません。"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Allow"
 msgstr "許可"
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 msgid "Updates Installed"
 msgstr "アップデートをインストールしました"
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 msgid "Restart the computer to finish installing them."
 msgstr "インストールを完了するには、コンピュータを再起動してください。"
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 msgid "Software Updates Available"
 msgstr "ソフトウェアアップデートがあります"
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 #, python-brace-format
 msgid "{n} update is available for this computer."
 msgid_plural "{n} updates are available for this computer."
@@ -301,10 +301,10 @@ msgstr "{name} が終了しませんでした。"
 msgid "System"
 msgstr "システム"
 
-#: session/cutefish-wayland.desktop
-msgid "Cutefish (Wayland)"
-msgstr "Cutefish（Wayland）"
+#: session/properdesktop-wayland.desktop
+msgid "Proper Desktop (Wayland)"
+msgstr "ProperDesktop（Wayland）"
 
-#: session/cutefish-wayland.desktop
-msgid "Cutefish desktop session"
-msgstr "Cutefish デスクトップセッション"
+#: session/properdesktop-wayland.desktop
+msgid "Proper Desktop session"
+msgstr "ProperDesktop デスクトップセッション"

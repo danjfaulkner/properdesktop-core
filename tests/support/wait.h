@@ -12,17 +12,17 @@
 namespace testsupport {
 
 // Runs the loop until the condition holds or the time is up.
-inline bool waitFor(cutefish::base::EventLoop &loop, const std::function<bool()> &condition,
+inline bool waitFor(properdesktop::base::EventLoop &loop, const std::function<bool()> &condition,
                     std::chrono::milliseconds timeout = std::chrono::seconds(5))
 {
     if (condition())
         return true;
-    cutefish::base::Timer poll(&loop);
+    properdesktop::base::Timer poll(&loop);
     poll.onTimeout = [&] {
         if (condition())
             loop.quit();
     };
-    cutefish::base::Timer limit(&loop);
+    properdesktop::base::Timer limit(&loop);
     limit.setSingleShot(true);
     limit.onTimeout = [&loop] {
         loop.quit();
@@ -34,7 +34,7 @@ inline bool waitFor(cutefish::base::EventLoop &loop, const std::function<bool()>
 }
 
 // Runs the loop for a while, so what should not happen has its chance.
-inline void wait(cutefish::base::EventLoop &loop, std::chrono::milliseconds time)
+inline void wait(properdesktop::base::EventLoop &loop, std::chrono::milliseconds time)
 {
     waitFor(loop, [] { return false; }, time);
 }

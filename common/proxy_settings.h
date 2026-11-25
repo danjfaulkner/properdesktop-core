@@ -9,7 +9,7 @@
 
 #include "common/environment.h"
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 // The session proxy, stored where GNOME keeps it: org.gnome.system.proxy in
 // the GSettings keyfile. Third-party proxy clients write it with gsettings, so
@@ -44,7 +44,7 @@ struct ProxySettings
 
     static ProxySettings load();
     // Writes the mode, the PAC URL and the servers. Ignore hosts and
-    // credentials are left as they are, since nothing in Cutefish edits them.
+    // credentials are left as they are, since nothing in Proper Desktop edits them.
     void save() const;
 
     // GIO's reading of the schema: HTTPS falls back to the HTTP proxy, other schemes to SOCKS.
@@ -63,4 +63,4 @@ void apply(Environment& environment);
 
 } // namespace proxy
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

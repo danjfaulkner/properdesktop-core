@@ -5,8 +5,8 @@
 
 #include "base/logging.h"
 
-inline const cutefish::base::LogCategory& sessionLog()
+inline const properdesktop::base::LogCategory& sessionLog()
 {
-    static const cutefish::base::LogCategory category("cutefish.session");
+    static const properdesktop::base::LogCategory category("properdesktop.session");
     return category;
 }

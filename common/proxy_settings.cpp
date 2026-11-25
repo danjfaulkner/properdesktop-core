@@ -8,7 +8,7 @@
 #include "base/url.h"
 #include "common/gsettings_keyfile.h"
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 static const std::string kProxyGroup = "system/proxy";
 
@@ -141,9 +141,9 @@ std::map<std::string, std::string> variables(const ProxySettings& settings)
 
     std::string credentials;
     if (settings.httpUseAuthentication && !settings.httpUser.empty()) {
-        credentials = cutefish::base::url::percentEncoded(settings.httpUser);
+        credentials = properdesktop::base::url::percentEncoded(settings.httpUser);
         if (!settings.httpPassword.empty())
-            credentials += ':' + cutefish::base::url::percentEncoded(settings.httpPassword);
+            credentials += ':' + properdesktop::base::url::percentEncoded(settings.httpPassword);
         credentials += '@';
     }
 
@@ -200,4 +200,4 @@ void apply(Environment& environment)
 
 } // namespace proxy
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

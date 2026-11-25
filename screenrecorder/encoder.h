@@ -1,5 +1,5 @@
-#ifndef CUTEFISH_RECORDER_ENCODER_H
-#define CUTEFISH_RECORDER_ENCODER_H
+#ifndef PROPERDESKTOP_RECORDER_ENCODER_H
+#define PROPERDESKTOP_RECORDER_ENCODER_H
 
 #include "image.h"
 
@@ -42,10 +42,10 @@ public:
 
     //! @p crop of @p image, presented at @p presentedNs on CLOCK_MONOTONIC.
     //! @p buffer goes back through onFrameDone once the pixels are read.
-    void encodeVideo(const Image &image, const cutefish::base::Rect &crop, int64_t presentedNs, int buffer);
+    void encodeVideo(const Image &image, const properdesktop::base::Rect &crop, int64_t presentedNs, int buffer);
     //! The same from a DMA-BUF on the render node @p node. onNeedsSharedMemory
     //! when the GPU cannot take it.
-    void encodeDmaBuf(const DmaBuf &dmabuf, const std::string &node, const cutefish::base::Rect &crop,
+    void encodeDmaBuf(const DmaBuf &dmabuf, const std::string &node, const properdesktop::base::Rect &crop,
                       int64_t presentedNs, int buffer);
     //! The capture buffers handed over so far are replaced, after a size change
     //! or by a new session; their GPU imports go with them.
@@ -67,21 +67,21 @@ public:
 private:
     friend class ScreenRecorderEncoderTest;
 
-    bool openVideo(const cutefish::base::Size &size, const std::string &node, std::string *error);
+    bool openVideo(const properdesktop::base::Size &size, const std::string &node, std::string *error);
     bool startVideo(std::string *error);
     void closeVideo();
-    bool openVaapi(const cutefish::base::Size &size, const std::string &node);
+    bool openVaapi(const properdesktop::base::Size &size, const std::string &node);
     bool openVpp();
     unsigned int importSurface(const DmaBuf &dmabuf, int buffer);
-    bool convertDmaBuf(const DmaBuf &dmabuf, int buffer, const cutefish::base::Rect &crop);
+    bool convertDmaBuf(const DmaBuf &dmabuf, int buffer, const properdesktop::base::Rect &crop);
     //! @p source trimmed to the video, and where in the frame it goes (m_fit).
-    cutefish::base::Rect fit(cutefish::base::Rect source);
+    properdesktop::base::Rect fit(properdesktop::base::Rect source);
     bool sendPending(int64_t presentedNs);
     void accepted(int64_t presentedNs);
-    bool openX264(const cutefish::base::Size &size);
+    bool openX264(const properdesktop::base::Size &size);
     bool openAudio(std::string *error);
     bool writeHeader(std::string *error);
-    bool convert(const Image &image, const cutefish::base::Rect &crop);
+    bool convert(const Image &image, const properdesktop::base::Rect &crop);
     bool sendVideo(int64_t pts, int64_t duration);
     bool queueSilence(int64_t frames);
     bool drainAudio(bool flush);
@@ -114,9 +114,9 @@ private:
     AVAudioFifo *m_fifo = nullptr;
     SwsContext *m_sws = nullptr;
     int m_swFormat = -1;
-    cutefish::base::Size m_size;
-    cutefish::base::Rect m_fit;
-    cutefish::base::Size m_scaledFrom;
+    properdesktop::base::Size m_size;
+    properdesktop::base::Rect m_fit;
+    properdesktop::base::Size m_scaledFrom;
 
     //! The first frame's presentation time; everything is relative to it.
     int64_t m_originNs = -1;
@@ -130,4 +130,4 @@ private:
     std::deque<std::pair<std::vector<float>, int64_t>> m_earlyAudio;
 };
 
-#endif // CUTEFISH_RECORDER_ENCODER_H
+#endif // PROPERDESKTOP_RECORDER_ENCODER_H

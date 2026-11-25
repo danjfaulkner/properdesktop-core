@@ -6,7 +6,7 @@
 #include "base/dbus.h"
 #include "logs.h"
 
-namespace dbus = cutefish::base::dbus;
+namespace dbus = properdesktop::base::dbus;
 
 static bool callLogind(const std::string& method)
 {

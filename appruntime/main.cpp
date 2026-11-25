@@ -10,9 +10,9 @@
 
 #include <cstring>
 
-namespace dbus = cutefish::base::dbus;
+namespace dbus = properdesktop::base::dbus;
 
-static constexpr char kService[] = "org.cutefish.AppRuntime";
+static constexpr char kService[] = "org.properdesktop.AppRuntime";
 static constexpr char kPath[] = "/AppRuntime";
 
 // launchApplication and launchCommand also come without an activation token,
@@ -53,8 +53,8 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    cutefish::base::EventLoop loop;
-    static const cutefish::base::LogCategory log("cutefish.appruntime");
+    properdesktop::base::EventLoop loop;
+    static const properdesktop::base::LogCategory log("properdesktop.appruntime");
 
     dbus::Connection *bus = dbus::Connection::session(&loop);
     if (!bus) {
@@ -64,10 +64,10 @@ int main(int argc, char *argv[])
 
     AppRuntime runtime;
     runtime.offerBundleRunner = [bus](const std::string &path, const std::string &activationToken) {
-        dbus::Message call = bus->newMethodCall("org.cutefish.Services", "/org/cutefish/Services/BundleRunner",
-                                                "org.cutefish.Services.BundleRunner", "offer");
+        dbus::Message call = bus->newMethodCall("org.properdesktop.Services", "/org/properdesktop/Services/BundleRunner",
+                                                "org.properdesktop.Services.BundleRunner", "offer");
         call.append(path, activationToken);
-        cutefish::core::callDetached(bus, call, [path](const dbus::Reply &reply) {
+        properdesktop::core::callDetached(bus, call, [path](const dbus::Reply &reply) {
             if (reply.isError())
                 CF_WARNING(log) << "Cannot offer a program to run" << path << reply.error().message;
         });

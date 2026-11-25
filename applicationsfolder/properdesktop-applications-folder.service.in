@@ -1,0 +1,11 @@
+[Unit]
+Description=ProperDesktop shared Applications folder
+
+[Service]
+Type=dbus
+BusName=org.properdesktop.ApplicationsFolder
+ExecStart=@CMAKE_INSTALL_FULL_LIBEXECDIR@/properdesktop-applications-folder
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=/Applications

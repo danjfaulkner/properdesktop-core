@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=org.properdesktop.ApplicationsFolder
+Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/properdesktop-applications-folder
+User=root
+SystemdService=properdesktop-applications-folder.service

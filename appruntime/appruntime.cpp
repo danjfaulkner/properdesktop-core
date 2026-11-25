@@ -21,11 +21,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-namespace base = cutefish::base;
-namespace strings = cutefish::base::strings;
+namespace base = properdesktop::base;
+namespace strings = properdesktop::base::strings;
 using namespace std::chrono_literals;
 
-static const base::LogCategory kLog("cutefish.appruntime");
+static const base::LogCategory kLog("properdesktop.appruntime");
 
 static constexpr auto kTerminateTimeout = 5000ms;
 // Taken at start: once the session is gone we belong to whatever adopted us.
@@ -40,11 +40,11 @@ AppRuntime::AppRuntime()
     };
 }
 
-cutefish::core::Environment AppRuntime::applicationEnvironment()
+properdesktop::core::Environment AppRuntime::applicationEnvironment()
 {
-    cutefish::core::Environment environment = cutefish::core::processEnvironment();
-    cutefish::core::language::apply(environment);
-    cutefish::core::proxy::apply(environment);
+    properdesktop::core::Environment environment = properdesktop::core::processEnvironment();
+    properdesktop::core::language::apply(environment);
+    properdesktop::core::proxy::apply(environment);
     environment.erase("XDG_ACTIVATION_TOKEN");
     return environment;
 }
@@ -122,12 +122,12 @@ uint32_t AppRuntime::launchCommand(const std::string &appId, const std::vector<s
 uint32_t AppRuntime::startProcess(const std::string &appId, const std::vector<std::string> &command,
                                   const std::string &workingDirectory, const std::string &activationToken)
 {
-    cutefish::core::Environment environment = applicationEnvironment();
+    properdesktop::core::Environment environment = applicationEnvironment();
     const std::vector<std::string> arguments = withChromiumSwitches(command);
     if (!activationToken.empty())
         environment["XDG_ACTIVATION_TOKEN"] = activationToken;
 
-    const pid_t started = cutefish::core::startDetached(arguments, workingDirectory, environment);
+    const pid_t started = properdesktop::core::startDetached(arguments, workingDirectory, environment);
     if (started <= 0) {
         CF_WARNING(kLog) << "AppRuntime: failed to start" << strings::join(arguments, " ");
         return 0;

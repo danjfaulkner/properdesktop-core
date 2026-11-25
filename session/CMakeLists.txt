@@ -1,5 +1,5 @@
-project(cutefish-session)
-set(TARGET cutefish-session)
+project(properdesktop-session)
+set(TARGET properdesktop-session)
 
 pkg_check_modules(Systemd REQUIRED IMPORTED_TARGET libsystemd)
 
@@ -20,14 +20,14 @@ set(SOURCES
 
 add_executable(${TARGET} ${SOURCES})
 target_link_libraries(${TARGET}
-        cutefish-core-common
-        Cutefish::ToolkitBase
+        properdesktop-core-common
+        ProperDesktop::ToolkitBase
         PkgConfig::Systemd
 )
 
 install(TARGETS ${TARGET} DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(PROGRAMS cutefish-wayland-session DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(PROGRAMS properdesktop-wayland-session DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES document-portal-stop.conf
         DESTINATION /usr/lib/systemd/user/xdg-document-portal.service.d
-        RENAME cutefish-session.conf)
-install(FILES cutefish-mimeapps.list DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)
+        RENAME properdesktop-session.conf)
+install(FILES properdesktop-mimeapps.list DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)

@@ -19,9 +19,9 @@ public:
 
 private:
     void check();
-    cutefish::base::file::TemporaryDirectory m_directory;
-    cutefish::base::FileWatch m_watch;
-    cutefish::base::Timer m_timeout;
+    properdesktop::base::file::TemporaryDirectory m_directory;
+    properdesktop::base::FileWatch m_watch;
+    properdesktop::base::Timer m_timeout;
     bool m_waiting = false;
     bool m_available = false;
 };

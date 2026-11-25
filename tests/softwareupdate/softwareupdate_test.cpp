@@ -21,7 +21,7 @@
 #include "softwareupdate/softwareupdate.h"
 #include "support/wait.h"
 
-using namespace cutefish::base;
+using namespace properdesktop::base;
 using namespace std::chrono_literals;
 
 static const char kPackageKit[] = "org.freedesktop.PackageKit";
@@ -77,12 +77,12 @@ public:
         m_notifications->addSignal("ActionInvoked", "us");
         EXPECT_TRUE(m_notifications->publish());
 
-        m_session = std::make_unique<dbus::Object>(m_bus.get(), "/Session", "org.cutefish.Session");
+        m_session = std::make_unique<dbus::Object>(m_bus.get(), "/Session", "org.properdesktop.Session");
         m_session->addMethod("reboot", [this] { calls.push_back("reboot"); });
         EXPECT_TRUE(m_session->publish());
 
         EXPECT_TRUE(m_bus->requestName("org.freedesktop.Notifications"));
-        EXPECT_TRUE(m_bus->requestName("org.cutefish.Session"));
+        EXPECT_TRUE(m_bus->requestName("org.properdesktop.Session"));
     }
 
     bool registerPackageKit() { return m_bus->requestName(kPackageKit); }
@@ -195,7 +195,7 @@ protected:
         service->bootId = [this] { return boot; };
         ASSERT_TRUE(service->publish());
         m_proxy = dbus::Proxy(dbus::Connection::session(), dbus::Connection::session()->uniqueName(),
-                              "/org/cutefish/Services/SoftwareUpdate", "org.cutefish.Services.SoftwareUpdate");
+                              "/org/properdesktop/Services/SoftwareUpdate", "org.properdesktop.Services.SoftwareUpdate");
         m_changed = m_proxy.onPropertiesChanged([this](const dbus::VariantMap &changed,
                                                        const std::vector<std::string> &) {
             for (const auto &[name, value] : changed)

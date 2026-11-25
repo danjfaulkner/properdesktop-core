@@ -21,7 +21,7 @@ static bool isLocalDisplay(const std::string& display)
 }
 
 XwaylandEnvironment::XwaylandEnvironment()
-    : m_directory(cutefish::base::paths::runtimeDirectory(), "cutefish-session-x11-")
+    : m_directory(properdesktop::base::paths::runtimeDirectory(), "properdesktop-session-x11-")
 {
     m_timeout.setSingleShot(true);
     m_timeout.onTimeout = [this] {
@@ -31,7 +31,7 @@ XwaylandEnvironment::XwaylandEnvironment()
             onResolved(false);
     };
     if (m_directory.isValid())
-        m_watch = cutefish::base::FileWatch::directory(m_directory.path(), [this](const std::string&) {
+        m_watch = properdesktop::base::FileWatch::directory(m_directory.path(), [this](const std::string&) {
             check();
         });
 }
@@ -80,7 +80,7 @@ void XwaylandEnvironment::check()
     if (length > 4096)
         return;
     bytes.resize(length);
-    const auto document = cutefish::base::json::Value::parse(bytes);
+    const auto document = properdesktop::base::json::Value::parse(bytes);
     if (!document || !document->isObject())
         return;
     const std::string display = (*document)["DISPLAY"].toString();

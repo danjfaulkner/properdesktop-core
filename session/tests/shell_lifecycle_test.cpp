@@ -15,7 +15,7 @@
 #include "shellprocess.h"
 #include "testutil.h"
 
-using cutefish::base::EventLoop;
+using properdesktop::base::EventLoop;
 using sessiontest::runUntil;
 
 static std::string selfPath()
@@ -28,7 +28,7 @@ static std::string selfPath()
 static std::string controlSocketPath()
 {
     const char* runtime = std::getenv("XDG_RUNTIME_DIR");
-    return std::string(runtime && *runtime ? runtime : "/tmp") + "/cutefish-session-lifecycle-test.control";
+    return std::string(runtime && *runtime ? runtime : "/tmp") + "/properdesktop-session-lifecycle-test.control";
 }
 
 static bool hasVariable(const char* name)
@@ -159,7 +159,7 @@ TEST(ShellLifecycle, stopAndMissingExecutable)
     EXPECT_FALSE(process.isRunning());
     process.stop();
 
-    EXPECT_FALSE(process.startForSession("/does-not-exist/cutefish-filemanager", "shell-test-socket", nullptr));
+    EXPECT_FALSE(process.startForSession("/does-not-exist/properdesktop-filemanager", "shell-test-socket", nullptr));
     EXPECT_FALSE(process.isRunning());
 }
 
@@ -248,12 +248,12 @@ static int runPrivilegedChild(int argc, char** argv)
         return 7;
 
     EventLoop loop;
-    cutefish::base::Process grandchild(&loop);
-    cutefish::core::Environment environment = cutefish::core::processEnvironment();
+    properdesktop::base::Process grandchild(&loop);
+    properdesktop::core::Environment environment = properdesktop::core::processEnvironment();
     environment.erase("WAYLAND_SOCKET");
     environment["SHELL_TEST_CHILD"] = "grandchild";
     environment["SHELL_TEST_PRIVILEGED_FD"] = std::to_string(fd);
-    grandchild.setEnvironment(cutefish::core::environmentEntries(environment));
+    grandchild.setEnvironment(properdesktop::core::environmentEntries(environment));
     int exitCode = 8;
     grandchild.onFinished = [&exitCode](int code, bool) {
         exitCode = code;

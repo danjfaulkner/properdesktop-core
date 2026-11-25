@@ -19,9 +19,9 @@
 #include "locale/language.h"
 #include "support/wait.h"
 
-using namespace cutefish::base;
+using namespace properdesktop::base;
 using namespace std::chrono_literals;
-namespace language = cutefish::core::language;
+namespace language = properdesktop::core::language;
 
 namespace {
 

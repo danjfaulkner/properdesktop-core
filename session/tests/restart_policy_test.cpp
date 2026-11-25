@@ -6,7 +6,7 @@
 #include "restartpolicy.h"
 #include "testutil.h"
 
-using cutefish::base::EventLoop;
+using properdesktop::base::EventLoop;
 using sessiontest::runFor;
 using sessiontest::runUntil;
 

@@ -18,9 +18,9 @@
 
 #include <gtest/gtest.h>
 
-using namespace cutefish::base;
+using namespace properdesktop::base;
 
-static constexpr char kService[] = "org.cutefish.AppRuntime";
+static constexpr char kService[] = "org.properdesktop.AppRuntime";
 static constexpr char kPath[] = "/AppRuntime";
 
 // (ssssssouso): a unit as systemd's manager lists it.
@@ -174,7 +174,7 @@ TEST_F(RuntimeTest, quitAllStopsEveryApplicationScope)
             [](std::vector<std::string>, std::vector<std::string> patterns) {
                 std::vector<UnitInfo> units;
                 if (std::find(patterns.begin(), patterns.end(), "app-*.scope") != patterns.end()) {
-                    units.push_back(activeScope("app-cutefish-sleeper-123.scope"));
+                    units.push_back(activeScope("app-properdesktop-sleeper-123.scope"));
                     units.push_back(activeScope("app-org.example.Browser-456.scope"));
                 }
                 return units;
@@ -193,7 +193,7 @@ TEST_F(RuntimeTest, quitAllStopsEveryApplicationScope)
     runtime().call("quitAll");
     ASSERT_TRUE(runUntil([&] { return stopped.size() == 2; }, 5000));
     std::sort(stopped.begin(), stopped.end());
-    EXPECT_EQ(stopped, (std::vector<std::string> {"app-cutefish-sleeper-123.scope", "app-org.example.Browser-456.scope"}));
+    EXPECT_EQ(stopped, (std::vector<std::string> {"app-properdesktop-sleeper-123.scope", "app-org.example.Browser-456.scope"}));
 }
 
 TEST_F(RuntimeTest, refusesWhatItCannotStart)
@@ -218,7 +218,7 @@ TEST_F(RuntimeTest, refusesWhatItCannotStart)
 TEST_F(BundleRuntimeTest, offersTheBundleRunner)
 {
     std::vector<std::pair<std::string, std::string>> offers;
-    dbus::Object offer(bus.get(), "/org/cutefish/Services/BundleRunner", "org.cutefish.Services.BundleRunner");
+    dbus::Object offer(bus.get(), "/org/properdesktop/Services/BundleRunner", "org.properdesktop.Services.BundleRunner");
     offer.addMethod(
             "offer",
             [&offers](std::string path, std::string activationToken) {
@@ -227,7 +227,7 @@ TEST_F(BundleRuntimeTest, offersTheBundleRunner)
             },
             dbus::ArgumentNames {{"path", "activationToken"}, {"offered"}});
     ASSERT_TRUE(offer.publish());
-    ASSERT_TRUE(bus->requestName("org.cutefish.Services", dbus::Connection::DoNotQueue));
+    ASSERT_TRUE(bus->requestName("org.properdesktop.Services", dbus::Connection::DoNotQueue));
 
     const std::string bundle = folder + "/Sample.app";
     writeBundle(bundle);

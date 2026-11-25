@@ -8,9 +8,9 @@
 
 #include "common/environment.h"
 
-// The session's application runtime, org.cutefish.AppRuntime, as the other
+// The session's application runtime, org.properdesktop.AppRuntime, as the other
 // core processes use it. Calls block for at most five seconds.
-namespace cutefish::core::runtime {
+namespace properdesktop::core::runtime {
 
 // What an application is started in when the runtime does not start it:
 // this process's environment without its Wayland connection or activation
@@ -29,4 +29,4 @@ bool quitApplication(const std::string& appId);
 bool quitAll();
 std::vector<std::string> runningApplications();
 
-} // namespace cutefish::core::runtime
+} // namespace properdesktop::core::runtime

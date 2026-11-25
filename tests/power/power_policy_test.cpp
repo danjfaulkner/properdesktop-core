@@ -15,15 +15,15 @@
 
 #include "base/dbus.h"
 #include "base/event_loop.h"
-#include "cutefish/display/display_types.h"
+#include "properdesktop/display/display_types.h"
 #include "power/displaypolicy.h"
 #include "support/wait.h"
 
-using namespace cutefish::base;
-using namespace cutefish::display;
+using namespace properdesktop::base;
+using namespace properdesktop::display;
 using namespace std::chrono_literals;
 
-static const char displayService[] = "org.cutefish.DisplayConfig.PowerTest";
+static const char displayService[] = "org.properdesktop.DisplayConfig.PowerTest";
 
 namespace {
 
@@ -222,8 +222,8 @@ private:
         m_logind = logind.get();
         m_objects.push_back(std::move(logind));
 
-        auto display = std::make_unique<dbus::Object>(m_bus.get(), "/org/cutefish/DisplayConfig1",
-                                                      "org.cutefish.DisplayConfig1");
+        auto display = std::make_unique<dbus::Object>(m_bus.get(), "/org/properdesktop/DisplayConfig1",
+                                                      "org.properdesktop.DisplayConfig1");
         display->addMethod("GetState", [this] {
             return std::make_tuple(std::string("test-instance"), std::string("seat0"), m_generation, m_revision,
                                    std::vector<PhysicalDisplay>(), std::vector<LogicalDisplay>(),
@@ -618,7 +618,7 @@ TEST_F(PowerPolicyTest, DockedLidStillSleepsWhenIdle)
     policy->idleFor(1200);
     ASSERT_TRUE(until([&] { return log().power == std::vector<uint32_t> {1}; }));
     ASSERT_TRUE(until([&] { return log().suspends == 1; }));
-    // An external display is in use, so the lid stays Cutefish's.
+    // An external display is in use, so the lid stays Proper Desktop's.
     EXPECT_TRUE(services.holdsLidInhibitor());
 }
 

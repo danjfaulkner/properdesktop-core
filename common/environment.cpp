@@ -7,7 +7,7 @@
 
 extern char** environ;
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 Environment processEnvironment()
 {
@@ -30,4 +30,4 @@ std::vector<std::string> environmentEntries(const Environment& environment)
     return entries;
 }
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

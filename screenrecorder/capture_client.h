@@ -1,8 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Reion Wong <reionwong@gmail.com>
 // SPDX-License-Identifier: BSD-3-Clause
 
-#ifndef CUTEFISH_RECORDER_CAPTURE_CLIENT_H
-#define CUTEFISH_RECORDER_CAPTURE_CLIENT_H
+#ifndef PROPERDESKTOP_RECORDER_CAPTURE_CLIENT_H
+#define PROPERDESKTOP_RECORDER_CAPTURE_CLIENT_H
 
 #include "base/geometry.h"
 
@@ -37,7 +37,7 @@ public:
         //! The wl_output name, e.g. eDP-1.
         std::string name;
         //! Where the output is in the compositor's global logical space.
-        cutefish::base::Rect logicalGeometry;
+        properdesktop::base::Rect logicalGeometry;
     };
 
     explicit CaptureClient(wl_display *display);
@@ -91,4 +91,4 @@ private:
     std::vector<std::unique_ptr<Toplevel>> m_toplevels;
 };
 
-#endif // CUTEFISH_RECORDER_CAPTURE_CLIENT_H
+#endif // PROPERDESKTOP_RECORDER_CAPTURE_CLIENT_H

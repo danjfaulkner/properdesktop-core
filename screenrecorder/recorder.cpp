@@ -13,14 +13,14 @@
 
 #include <wayland-client.h>
 
-using cutefish::base::Rect;
-using cutefish::base::RectF;
-using cutefish::base::Size;
+using properdesktop::base::Rect;
+using properdesktop::base::RectF;
+using properdesktop::base::Size;
 
 // Buffer ids travel to the encoder with the session they belong to.
 static constexpr int kSessionStride = 1 << 16;
 
-Recorder::Recorder(const Options &options, cutefish::base::EventLoop &loop)
+Recorder::Recorder(const Options &options, properdesktop::base::EventLoop &loop)
     : m_options(options)
     , m_loop(loop)
 {
@@ -122,7 +122,7 @@ bool Recorder::start(std::string *error)
         };
         std::string audioError;
         if (!m_audio->start(m_options.microphoneTarget, &audioError))
-            fprintf(stderr, "cutefish-screenrecorder: %s\n", audioError.c_str());
+            fprintf(stderr, "properdesktop-screenrecorder: %s\n", audioError.c_str());
     }
     return true;
 }

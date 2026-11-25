@@ -9,7 +9,7 @@
 
 #include "common/environment.h"
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 // Takes the oom_score_adj value in the file at `path` back to 0 when it is
 // below, and never lowers it. Async-signal-safe, for between fork and exec.
@@ -23,4 +23,4 @@ void dropOomProtection(const char* path);
 pid_t startDetached(const std::vector<std::string>& command, const std::string& workingDirectory,
                     const Environment& environment);
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

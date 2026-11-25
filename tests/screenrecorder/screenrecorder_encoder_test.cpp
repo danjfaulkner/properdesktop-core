@@ -20,8 +20,8 @@ extern "C" {
 #include <libavformat/avformat.h>
 }
 
-using cutefish::base::Rect;
-using cutefish::base::Size;
+using properdesktop::base::Rect;
+using properdesktop::base::Size;
 
 static constexpr int64_t kOriginNs = 1'000'000'000'000;
 static constexpr int64_t kFrameNs = 33'333'333;
@@ -236,7 +236,7 @@ protected:
     static const std::map<int, unsigned int> &imported(const Encoder &encoder) { return encoder.m_imported; }
     static void *display(const Encoder &encoder) { return encoder.m_display; }
 
-    cutefish::base::file::TemporaryDirectory m_directory{std::filesystem::temp_directory_path().string(),
+    properdesktop::base::file::TemporaryDirectory m_directory{std::filesystem::temp_directory_path().string(),
                                                          "recorder-test-"};
 };
 

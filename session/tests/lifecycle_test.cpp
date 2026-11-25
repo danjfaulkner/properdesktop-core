@@ -8,7 +8,7 @@
 #include "compositorprocess.h"
 #include "testutil.h"
 
-using cutefish::base::EventLoop;
+using properdesktop::base::EventLoop;
 using sessiontest::runUntil;
 
 static std::string selfPath()
@@ -90,7 +90,7 @@ TEST(SessionLifecycle, missingExecutable)
     CompositorProcess process;
     Counts counts;
     track(process, counts);
-    process.start("/does-not-exist/cutefish-compositor", "test-socket", "test-control");
+    process.start("/does-not-exist/properdesktop-compositor", "test-socket", "test-control");
     EXPECT_EQ(counts.failed, 1);
 }
 

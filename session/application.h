@@ -18,7 +18,7 @@
 class Application
 {
 public:
-    Application(int argc, char** argv, cutefish::base::EventLoop& loop);
+    Application(int argc, char** argv, properdesktop::base::EventLoop& loop);
     ~Application();
 
     int exec() { return m_loop.run(); }
@@ -40,11 +40,11 @@ private:
     int runSync(const std::string& program, const std::vector<std::string>& args);
 
 private:
-    cutefish::base::EventLoop& m_loop;
+    properdesktop::base::EventLoop& m_loop;
     std::unique_ptr<ProcessManager> m_processManager;
-    std::unique_ptr<cutefish::base::dbus::Object> m_sessionObject;
-    std::unique_ptr<cutefish::base::SessionLanguage> m_language;
-    cutefish::base::Timer m_startTimer;
+    std::unique_ptr<properdesktop::base::dbus::Object> m_sessionObject;
+    std::unique_ptr<properdesktop::base::SessionLanguage> m_language;
+    properdesktop::base::Timer m_startTimer;
     int m_terminationWatch = 0;
 };
 

@@ -24,9 +24,9 @@
 #include "ext-image-copy-capture-v1-client-protocol.h"
 #include "linux-dmabuf-v1-client-protocol.h"
 
-using cutefish::base::Size;
+using properdesktop::base::Size;
 
-static const cutefish::base::LogCategory cfCapture("cutefish.capture", cutefish::base::LogLevel::Warning);
+static const properdesktop::base::LogCategory cfCapture("properdesktop.capture", properdesktop::base::LogLevel::Warning);
 
 // The DRM node with this st_rdev, which is how the compositor names its device.
 static std::string nodeFor(dev_t device)
@@ -373,7 +373,7 @@ bool CaptureSession::allocate(int count)
 bool CaptureSession::allocateShm(Buffer *buffer)
 {
     buffer->length = size_t(m_size.width()) * size_t(m_size.height()) * 4;
-    const int fd = memfd_create("cutefish-capture", MFD_CLOEXEC);
+    const int fd = memfd_create("properdesktop-capture", MFD_CLOEXEC);
     if (fd < 0)
         return false;
     if (ftruncate(fd, off_t(buffer->length)) != 0) {

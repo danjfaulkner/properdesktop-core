@@ -11,9 +11,9 @@
 
 #include <chrono>
 
-namespace cutefish::core::runtime {
+namespace properdesktop::core::runtime {
 
-static constexpr char kService[] = "org.cutefish.AppRuntime";
+static constexpr char kService[] = "org.properdesktop.AppRuntime";
 static constexpr char kPath[] = "/AppRuntime";
 
 static base::dbus::Proxy appRuntime()
@@ -78,4 +78,4 @@ std::vector<std::string> runningApplications()
     return appRuntime().call("runningApplications").value<std::vector<std::string>>().value_or(std::vector<std::string>());
 }
 
-} // namespace cutefish::core::runtime
+} // namespace properdesktop::core::runtime

@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-namespace cutefish::base {
+namespace properdesktop::base {
 class LocalSocket;
 class Process;
 }
@@ -43,8 +43,8 @@ private:
     void processLine(const std::string &line);
     void finish(bool gainedAuthorization);
 
-    std::unique_ptr<cutefish::base::LocalSocket> m_socket;
-    std::unique_ptr<cutefish::base::Process> m_process;
+    std::unique_ptr<properdesktop::base::LocalSocket> m_socket;
+    std::unique_ptr<properdesktop::base::Process> m_process;
     std::string m_buffer;
     bool m_succeeded = false;
     bool m_finished = false;

@@ -13,7 +13,7 @@
 #include <sys/signalfd.h>
 #include <unistd.h>
 
-namespace base = cutefish::base;
+namespace base = properdesktop::base;
 
 // Prints "started" at the first frame; "stop" or the end of standard input ends
 // the recording, and the exit status says whether the file was completed.

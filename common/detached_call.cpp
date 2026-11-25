@@ -7,7 +7,7 @@
 
 #include <systemd/sd-bus.h>
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 using Callback = std::function<void(const base::dbus::Reply&)>;
 
@@ -59,4 +59,4 @@ void callDetached(base::dbus::Connection* connection, const base::dbus::Message&
     sd_bus_slot_unref(slot);
 }
 
-} // namespace cutefish::core
+} // namespace properdesktop::core

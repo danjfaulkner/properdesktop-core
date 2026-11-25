@@ -12,18 +12,18 @@
 #include "base/event_loop.h"
 #include "base/file.h"
 #include "base/settings.h"
-#include "cutefish/display/display_types.h"
+#include "properdesktop/display/display_types.h"
 #include "nightlight.h"
 #include "scheduleutils.h"
 #include "support/wait.h"
 
-using namespace cutefish::base;
-using namespace cutefish::display;
+using namespace properdesktop::base;
+using namespace properdesktop::display;
 using namespace ScheduleUtils;
 using namespace std::chrono;
 using namespace std::chrono_literals;
 
-static const char displayService[] = "org.cutefish.DisplayConfig.NightLightTest";
+static const char displayService[] = "org.properdesktop.DisplayConfig.NightLightTest";
 
 static Date october(int day)
 {
@@ -66,7 +66,7 @@ class FakeDisplayConfig
 public:
     explicit FakeDisplayConfig(bool tintable)
         : m_bus(dbus::Connection::open(dbus::Connection::Bus::Session))
-        , m_object(m_bus.get(), "/org/cutefish/DisplayConfig1", "org.cutefish.DisplayConfig1")
+        , m_object(m_bus.get(), "/org/properdesktop/DisplayConfig1", "org.properdesktop.DisplayConfig1")
     {
         m_object.addMethod("GetState", [tintable] {
             PhysicalDisplay display;
@@ -400,8 +400,8 @@ TEST_F(NightLightTest, APreviewEndsWhenItsCallerLeaves)
     ASSERT_TRUE(nightLight->publish(service));
 
     auto client = dbus::Connection::open(dbus::Connection::Bus::Session);
-    dbus::Message call = client->newMethodCall(service->uniqueName(), "/org/cutefish/Services/NightLight",
-                                                 "org.cutefish.Services.NightLight", "setPreview");
+    dbus::Message call = client->newMethodCall(service->uniqueName(), "/org/properdesktop/Services/NightLight",
+                                                 "org.properdesktop.Services.NightLight", "setPreview");
     call.append(true);
     client->send(call);
     ASSERT_TRUE(testsupport::waitFor(loop, [&] { return nightLight->previewing(); }));

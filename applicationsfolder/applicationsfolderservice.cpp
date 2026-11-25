@@ -22,14 +22,14 @@
 
 #include <linux/fs.h>
 
-namespace dbus = cutefish::base::dbus;
+namespace dbus = properdesktop::base::dbus;
 
-static const cutefish::base::LogCategory kLog("cutefish.applicationsfolder");
+static const properdesktop::base::LogCategory kLog("properdesktop.applicationsfolder");
 
-static constexpr char kAction[] = "org.cutefish.applications-folder.change";
-static constexpr char kStagingPrefix[] = ".cutefish-staging-";
-static constexpr char kPublishingPrefix[] = ".cutefish-publishing-";
-static constexpr char kFailed[] = "org.cutefish.ApplicationsFolder.Error.Failed";
+static constexpr char kAction[] = "org.properdesktop.applications-folder.change";
+static constexpr char kStagingPrefix[] = ".properdesktop-staging-";
+static constexpr char kPublishingPrefix[] = ".properdesktop-publishing-";
+static constexpr char kFailed[] = "org.properdesktop.ApplicationsFolder.Error.Failed";
 
 // polkit's Subject: a kind and its details.
 using PolkitSubject = std::tuple<std::string, dbus::VariantMap>;
@@ -54,7 +54,7 @@ public:
 
 static std::string uniqueName(const char *prefix)
 {
-    std::string id = cutefish::base::Uuid::generate().toString();
+    std::string id = properdesktop::base::Uuid::generate().toString();
     std::erase(id, '-');
     return prefix + id;
 }
@@ -175,7 +175,7 @@ ApplicationsFolderService::~ApplicationsFolderService() = default;
 bool ApplicationsFolderService::exportTo(dbus::Connection *bus)
 {
     m_bus = bus;
-    m_object = std::make_unique<dbus::Object>(bus, "/org/cutefish/ApplicationsFolder", "org.cutefish.ApplicationsFolder");
+    m_object = std::make_unique<dbus::Object>(bus, "/org/properdesktop/ApplicationsFolder", "org.properdesktop.ApplicationsFolder");
 
     m_object->addMethod(
             "prepare", "", "s",
@@ -267,14 +267,14 @@ void ApplicationsFolderService::withCaller(dbus::MethodCall &call, bool ask,
 
     ++m_pending;
     dbus::MethodCall request = call;
-    cutefish::core::callDetached(
+    properdesktop::core::callDetached(
             m_bus, check,
             [this, request, answer](const dbus::Reply &reply) mutable {
                 --m_pending;
                 m_idleTimer.start();
                 std::tuple<bool, bool, std::map<std::string, std::string>> result;
                 if (!reply.read(result)) {
-                    CF_WARNING(kLog) << "cutefish-applications-folder: polkit check failed:" << reply.error().message;
+                    CF_WARNING(kLog) << "properdesktop-applications-folder: polkit check failed:" << reply.error().message;
                     std::get<0>(result) = false;
                 }
                 if (!std::get<0>(result)) {
@@ -402,7 +402,7 @@ std::string ApplicationsFolderService::release(uint32_t user, const std::string 
     // The user's now, to move or delete as they like.
     const struct passwd *account = ::getpwuid(user);
     if (!ownTree(target.value, name, user, account ? account->pw_gid : gid_t(-1), false))
-        CF_WARNING(kLog) << "cutefish-applications-folder: not all of" << name << "changed hands";
+        CF_WARNING(kLog) << "properdesktop-applications-folder: not all of" << name << "changed hands";
     return staging;
 }
 

@@ -4,7 +4,7 @@
 #include <string>
 
 // Transient systemd scopes for launched applications, named
-// app-cutefish-<AppID>-<pid>.scope as the desktop entry specification asks,
+// app-properdesktop-<AppID>-<pid>.scope as the desktop entry specification asks,
 // which is how xdg-desktop-portal learns the app id of a host application.
 namespace ApplicationScope {
 

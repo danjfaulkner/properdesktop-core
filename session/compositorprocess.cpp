@@ -36,7 +36,7 @@ void CompositorProcess::closeReadyPipe()
 {
     m_timeout.stop();
     if (m_readWatch) {
-        cutefish::base::EventLoop::current()->unwatch(m_readWatch);
+        properdesktop::base::EventLoop::current()->unwatch(m_readWatch);
         m_readWatch = 0;
     }
     if (m_readFd >= 0) {
@@ -89,7 +89,7 @@ void CompositorProcess::start(const std::string& program, const std::string& soc
     const int writeFd = fds[1];
     // The write end is the compositor's only inherited descriptor.
     std::vector<std::string> arguments{"--socket", socket, "--ready-fd",
-                                       std::to_string(cutefish::base::Process::kInheritedFd)};
+                                       std::to_string(properdesktop::base::Process::kInheritedFd)};
     if (!controlSocket.empty()) {
         arguments.push_back("--shell-control-socket");
         arguments.push_back(controlSocket);
@@ -98,7 +98,7 @@ void CompositorProcess::start(const std::string& program, const std::string& soc
         arguments.push_back("--xwayland-ready-file");
         arguments.push_back(xwaylandReadyFile);
     }
-    m_readWatch = cutefish::base::EventLoop::current()->watch(m_readFd, EPOLLIN, [this](uint32_t) {
+    m_readWatch = properdesktop::base::EventLoop::current()->watch(m_readFd, EPOLLIN, [this](uint32_t) {
         readReady();
     });
     m_process.setInheritedFd(writeFd);

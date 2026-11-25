@@ -15,7 +15,7 @@
 
 #include <gtest/gtest.h>
 
-using namespace cutefish::base;
+using namespace properdesktop::base;
 
 namespace {
 
@@ -27,7 +27,7 @@ protected:
         service = dbus::Connection::open(dbus::Connection::Bus::Session, &loop);
         client = dbus::Connection::open(dbus::Connection::Bus::Session, &loop);
         ASSERT_TRUE(service && client);
-        object = std::make_unique<dbus::Object>(service.get(), "/test", "org.cutefish.Test");
+        object = std::make_unique<dbus::Object>(service.get(), "/test", "org.properdesktop.Test");
         object->addMethod("Echo", [](const std::string &text) { return text; });
         object->addMethod("Hold", "", "", [this](dbus::MethodCall &call) {
             held.push_back(call);
@@ -37,7 +37,7 @@ protected:
 
     dbus::Message call(const std::string &method) const
     {
-        return client->newMethodCall(service->uniqueName(), "/test", "org.cutefish.Test", method);
+        return client->newMethodCall(service->uniqueName(), "/test", "org.properdesktop.Test", method);
     }
 
     bool runUntil(const std::function<bool()> &condition)
@@ -68,7 +68,7 @@ TEST_F(DetachedCallTest, theAnswerArrivesAndTheCallbackGoes)
     std::optional<std::string> answer;
     dbus::Message echo = call("Echo");
     echo.append(std::string("pong"));
-    cutefish::core::callDetached(client.get(), echo, [alive, &answer](const dbus::Reply &reply) {
+    properdesktop::core::callDetached(client.get(), echo, [alive, &answer](const dbus::Reply &reply) {
         answer = reply.value<std::string>();
     });
 
@@ -81,7 +81,7 @@ TEST_F(DetachedCallTest, aConnectionThatClosesFirstTakesTheCallWithIt)
 {
     auto alive = std::make_shared<int>(0);
     bool answered = false;
-    cutefish::core::callDetached(client.get(), call("Hold"), [alive, &answered](const dbus::Reply &) {
+    properdesktop::core::callDetached(client.get(), call("Hold"), [alive, &answered](const dbus::Reply &) {
         answered = true;
     });
     ASSERT_TRUE(runUntil([&] { return !held.empty(); }));
@@ -94,7 +94,7 @@ TEST_F(DetachedCallTest, aConnectionThatClosesFirstTakesTheCallWithIt)
 TEST_F(DetachedCallTest, aCallWithoutAConnectionFailsAtOnce)
 {
     std::optional<dbus::Reply> answer;
-    cutefish::core::callDetached(nullptr, dbus::Message(), [&answer](const dbus::Reply &reply) {
+    properdesktop::core::callDetached(nullptr, dbus::Message(), [&answer](const dbus::Reply &reply) {
         answer = reply;
     });
 

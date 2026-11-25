@@ -42,7 +42,7 @@ private:
     std::string m_name;
     std::function<void()> m_restart;
     Limits m_limits;
-    cutefish::base::Timer m_timer;
+    properdesktop::base::Timer m_timer;
     std::optional<std::chrono::steady_clock::time_point> m_startedAt;
     int m_restarts = 0;
     bool m_stopped = false;

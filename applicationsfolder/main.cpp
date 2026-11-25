@@ -12,14 +12,14 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    cutefish::base::EventLoop loop;
-    static const cutefish::base::LogCategory log("cutefish.applicationsfolder");
+    properdesktop::base::EventLoop loop;
+    static const properdesktop::base::LogCategory log("properdesktop.applicationsfolder");
 
     ApplicationsFolderService service;
 
-    cutefish::base::dbus::Connection *bus = cutefish::base::dbus::Connection::system(&loop);
-    if (!bus || !service.exportTo(bus) || !bus->requestName("org.cutefish.ApplicationsFolder")) {
-        CF_WARNING(log) << "cutefish-applications-folder: cannot register on the system bus";
+    properdesktop::base::dbus::Connection *bus = properdesktop::base::dbus::Connection::system(&loop);
+    if (!bus || !service.exportTo(bus) || !bus->requestName("org.properdesktop.ApplicationsFolder")) {
+        CF_WARNING(log) << "properdesktop-applications-folder: cannot register on the system bus";
         return 1;
     }
 

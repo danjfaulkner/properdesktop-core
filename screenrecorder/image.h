@@ -1,8 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Reion Wong <reionwong@gmail.com>
 // SPDX-License-Identifier: BSD-3-Clause
 
-#ifndef CUTEFISH_RECORDER_IMAGE_H
-#define CUTEFISH_RECORDER_IMAGE_H
+#ifndef PROPERDESKTOP_RECORDER_IMAGE_H
+#define PROPERDESKTOP_RECORDER_IMAGE_H
 
 #include "base/geometry.h"
 
@@ -24,8 +24,8 @@ struct Image
     static Image allocate(int width, int height);
 
     bool isNull() const { return !bits; }
-    cutefish::base::Size size() const { return {width, height}; }
-    cutefish::base::Rect rect() const { return cutefish::base::Rect(0, 0, width, height); }
+    properdesktop::base::Size size() const { return {width, height}; }
+    properdesktop::base::Rect rect() const { return properdesktop::base::Rect(0, 0, width, height); }
     // Only for an image that owns its pixels.
     uint8_t *mutableBits() const { return storage ? storage->data() : nullptr; }
 };
@@ -38,7 +38,7 @@ struct DmaBuf
     uint64_t modifier = 0;
     uint32_t offset = 0;
     uint32_t stride = 0;
-    cutefish::base::Size size;
+    properdesktop::base::Size size;
 
     bool isValid() const { return fd >= 0; }
 };
@@ -46,4 +46,4 @@ struct DmaBuf
 //! @p image, which is in wl_output @p transform, the way it is shown.
 Image upright(const Image &image, uint32_t transform);
 
-#endif // CUTEFISH_RECORDER_IMAGE_H
+#endif // PROPERDESKTOP_RECORDER_IMAGE_H

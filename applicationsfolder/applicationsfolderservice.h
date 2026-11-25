@@ -32,9 +32,9 @@ public:
     explicit ApplicationsFolderService(Paths paths, std::chrono::milliseconds idleTimeout = std::chrono::seconds(60));
     ~ApplicationsFolderService();
 
-    // Exports org.cutefish.ApplicationsFolder at /org/cutefish/ApplicationsFolder;
+    // Exports org.properdesktop.ApplicationsFolder at /org/properdesktop/ApplicationsFolder;
     // false when the object cannot be added.
-    bool exportTo(cutefish::base::dbus::Connection *bus);
+    bool exportTo(properdesktop::base::dbus::Connection *bus);
 
     // The work itself, for the caller with that user id; each answers the
     // path it made, or empty after setting `error`.
@@ -50,14 +50,14 @@ public:
 private:
     // Calls `then` with the caller's user id once polkit agreed, asking an
     // administrator when `ask` is set; replies with an error otherwise.
-    void withCaller(cutefish::base::dbus::MethodCall &call, bool ask,
-                    std::function<void(cutefish::base::dbus::MethodCall &, uint32_t)> then);
+    void withCaller(properdesktop::base::dbus::MethodCall &call, bool ask,
+                    std::function<void(properdesktop::base::dbus::MethodCall &, uint32_t)> then);
     // The staging folder's name when `path` is one the user owns.
     std::string stagingName(uint32_t user, const std::string &path) const;
 
     Paths m_paths;
-    cutefish::base::Timer m_idleTimer;
-    cutefish::base::dbus::Connection *m_bus = nullptr;
-    std::unique_ptr<cutefish::base::dbus::Object> m_object;
+    properdesktop::base::Timer m_idleTimer;
+    properdesktop::base::dbus::Connection *m_bus = nullptr;
+    std::unique_ptr<properdesktop::base::dbus::Object> m_object;
     int m_pending = 0;
 };

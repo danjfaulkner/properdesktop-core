@@ -1,4 +1,4 @@
-# cutefish-screenrecorder: the shell's screen recordings, captured through the
+# properdesktop-screenrecorder: the shell's screen recordings, captured through the
 # compositor and encoded here, so neither the shell nor the compositor ever
 # encodes. It captures only on the Wayland connection the shell starts it with
 # (WAYLAND_SOCKET), not by its path. Frames come as DMA-BUFs and stay on the
@@ -13,7 +13,7 @@ pkg_check_modules(PipeWire REQUIRED IMPORTED_TARGET libpipewire-0.3)
 pkg_get_variable(WAYLAND_PROTOCOLS_DATADIR wayland-protocols pkgdatadir)
 find_program(WAYLAND_SCANNER_EXECUTABLE NAMES wayland-scanner REQUIRED)
 
-add_executable(cutefish-screenrecorder
+add_executable(properdesktop-screenrecorder
     main.cpp
     audiocapture.cpp
     capture_client.cpp
@@ -41,12 +41,12 @@ foreach(protocol
     add_custom_command(OUTPUT ${code}
         COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${xml} ${code}
         DEPENDS ${xml} VERBATIM)
-    target_sources(cutefish-screenrecorder PRIVATE ${header} ${code})
+    target_sources(properdesktop-screenrecorder PRIVATE ${header} ${code})
 endforeach()
 
-target_include_directories(cutefish-screenrecorder PRIVATE ${protocol_dir})
-target_link_libraries(cutefish-screenrecorder PRIVATE
-    Cutefish::ToolkitBase
+target_include_directories(properdesktop-screenrecorder PRIVATE ${protocol_dir})
+target_link_libraries(properdesktop-screenrecorder PRIVATE
+    ProperDesktop::ToolkitBase
     PkgConfig::WaylandClient
     PkgConfig::Gbm
     PkgConfig::FFmpeg
@@ -55,7 +55,7 @@ target_link_libraries(cutefish-screenrecorder PRIVATE
     PkgConfig::PipeWire
 )
 
-install(TARGETS cutefish-screenrecorder
+install(TARGETS properdesktop-screenrecorder
     DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}
     COMPONENT Runtime
 )

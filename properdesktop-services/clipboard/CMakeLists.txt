@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.22)
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    project(properdesktop-clipboard LANGUAGES C CXX)
+    find_package(ProperDesktopToolkit REQUIRED)
+endif()
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(ClipboardWayland REQUIRED IMPORTED_TARGET wayland-client)
+pkg_check_modules(ClipboardProtocols REQUIRED wayland-protocols>=1.39)
+pkg_get_variable(CLIPBOARD_PROTOCOL_DIR wayland-protocols pkgdatadir)
+pkg_get_variable(CLIPBOARD_SCANNER wayland-scanner wayland_scanner)
+set(CLIPBOARD_GENERATED_DIR ${CMAKE_CURRENT_BINARY_DIR}/protocols)
+file(MAKE_DIRECTORY ${CLIPBOARD_GENERATED_DIR})
+set(xml ${CLIPBOARD_PROTOCOL_DIR}/staging/ext-data-control/ext-data-control-v1.xml)
+set(header ${CLIPBOARD_GENERATED_DIR}/ext-data-control-v1-client-protocol.h)
+set(code ${CLIPBOARD_GENERATED_DIR}/ext-data-control-v1-protocol.c)
+add_custom_command(OUTPUT ${header} ${code}
+    COMMAND ${CLIPBOARD_SCANNER} client-header ${xml} ${header}
+    COMMAND ${CLIPBOARD_SCANNER} private-code ${xml} ${code}
+    DEPENDS ${xml} VERBATIM)
+add_library(properdesktop-clipboard-backend STATIC
+    clipboard.cpp clipboard.h waylandclipboard.cpp waylandclipboard.h ${header} ${code})
+set_target_properties(properdesktop-clipboard-backend PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+target_include_directories(properdesktop-clipboard-backend PRIVATE ${CLIPBOARD_GENERATED_DIR})
+target_link_libraries(properdesktop-clipboard-backend PUBLIC ProperDesktop::ToolkitBase
+    PRIVATE PkgConfig::ClipboardWayland)
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    add_executable(clipboard-service-test-helper tests/service_helper.cpp)
+    set_target_properties(clipboard-service-test-helper PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+    target_link_libraries(clipboard-service-test-helper PRIVATE properdesktop-clipboard-backend)
+endif()

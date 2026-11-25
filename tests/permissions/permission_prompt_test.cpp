@@ -18,8 +18,8 @@
 #include "ui/test_input.h"
 #include "ui/window.h"
 
-using namespace cutefish;
-using namespace cutefish::base;
+using namespace properdesktop;
+using namespace properdesktop::base;
 using namespace std::chrono_literals;
 
 namespace {
@@ -63,9 +63,9 @@ protected:
     void prompt(dbus::Connection &from, const std::string &token, const std::string &kind,
                 const dbus::VariantMap &options, std::optional<Answer> &answer)
     {
-        dbus::Message call = from.newMethodCall(service->uniqueName(), "/org/cutefish/Services/Permissions",
-                                                "org.cutefish.Services.Permissions", "Prompt");
-        call.append(token, kind, std::string("cutefish-system-monitor"), std::string(), options);
+        dbus::Message call = from.newMethodCall(service->uniqueName(), "/org/properdesktop/Services/Permissions",
+                                                "org.properdesktop.Services.Permissions", "Prompt");
+        call.append(token, kind, std::string("properdesktop-system-monitor"), std::string(), options);
         calls.push_back(from.callAsync(call, [&answer](const dbus::Reply &reply) {
             Answer result;
             result.error = reply.isError();
@@ -89,8 +89,8 @@ protected:
 
     dbus::Reply dismiss(dbus::Connection &from, const std::string &token)
     {
-        dbus::Message call = from.newMethodCall(service->uniqueName(), "/org/cutefish/Services/Permissions",
-                                                "org.cutefish.Services.Permissions", "Dismiss");
+        dbus::Message call = from.newMethodCall(service->uniqueName(), "/org/properdesktop/Services/Permissions",
+                                                "org.properdesktop.Services.Permissions", "Dismiss");
         call.append(token);
         std::optional<dbus::Reply> result;
         calls.push_back(from.callAsync(call, [&result](const dbus::Reply &reply) { result = reply; }));
@@ -111,7 +111,7 @@ protected:
         if (windows) {
             dbus::VariantMap window {{"identifier", dbus::Variant(std::string("7"))},
                                      {"title", dbus::Variant(std::string("Files"))},
-                                     {"app_id", dbus::Variant(std::string("cutefish-filemanager"))}};
+                                     {"app_id", dbus::Variant(std::string("properdesktop-filemanager"))}};
             options["windows"] = dbus::Variant(std::vector<dbus::VariantMap> {window});
         }
         return options;

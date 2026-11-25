@@ -13,15 +13,15 @@
 #include "base/process.h"
 #include "base/strings.h"
 
-using namespace cutefish::base;
-using namespace cutefish::base::strings;
+using namespace properdesktop::base;
+using namespace properdesktop::base::strings;
 
 static std::string s_helperPath = "/usr/lib/polkit-1/polkit-agent-helper-1";
 static std::string s_helperSocketPath = "/run/polkit/agent-helper.socket";
 
 static const LogCategory &log()
 {
-    static const LogCategory category("cutefish.polkit");
+    static const LogCategory category("properdesktop.polkit");
     return category;
 }
 

@@ -34,6 +34,6 @@ public:
     std::function<void(int code, bool crashed)> onFinished;
 
 private:
-    cutefish::base::Process m_process;
+    properdesktop::base::Process m_process;
     std::string m_program;
 };

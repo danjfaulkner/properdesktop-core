@@ -30,7 +30,7 @@ bool ShellProcess::startForSession(const std::string& program, const std::string
     if (m_process.isRunning())
         return false;
 
-    cutefish::core::Environment environment = cutefish::core::processEnvironment();
+    properdesktop::core::Environment environment = properdesktop::core::processEnvironment();
     environment["WAYLAND_DISPLAY"] = socket;
     environment.erase("WAYLAND_SOCKET");
 
@@ -44,7 +44,7 @@ bool ShellProcess::startForSession(const std::string& program, const std::string
         // else the session starts; the daemon inherits it as its only extra
         // descriptor.
         arguments.push_back("--desktop-socket");
-        arguments.push_back(std::to_string(cutefish::base::Process::kInheritedFd));
+        arguments.push_back(std::to_string(properdesktop::base::Process::kInheritedFd));
     } else {
         CF_WARNING(sessionLog()) << "Starting" << program
                                  << "without a privileged connection; there will be no desktop";
@@ -52,7 +52,7 @@ bool ShellProcess::startForSession(const std::string& program, const std::string
 
     m_program = program;
     m_process.setInheritedFd(shellFd);
-    m_process.setEnvironment(cutefish::core::environmentEntries(environment));
+    m_process.setEnvironment(properdesktop::core::environmentEntries(environment));
     const bool started = startWithOwnJournalStream(m_process, program, arguments);
     if (started)
         CF_INFO(sessionLog()) << "Session started" << program << "PID" << m_process.pid();

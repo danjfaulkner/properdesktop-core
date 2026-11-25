@@ -20,7 +20,7 @@
 
 #include <vector>
 
-static const cutefish::base::LogCategory kLog("cutefish.privacy");
+static const properdesktop::base::LogCategory kLog("properdesktop.privacy");
 
 static std::vector<snd_ctl_elem_id> captureSwitches(int fd)
 {
@@ -71,7 +71,7 @@ CaptureSwitches::~CaptureSwitches()
         ::close(fd);
 
     if (m_watch)
-        cutefish::base::EventLoop::current()->unwatch(m_watch);
+        properdesktop::base::EventLoop::current()->unwatch(m_watch);
 
     if (m_inotify >= 0)
         ::close(m_inotify);
@@ -98,11 +98,11 @@ void CaptureSwitches::setLocked(bool locked)
     if (m_inotify < 0) {
         m_inotify = ::inotify_init1(IN_NONBLOCK | IN_CLOEXEC);
         if (m_inotify >= 0 && ::inotify_add_watch(m_inotify, m_deviceDirectory.c_str(), IN_CREATE | IN_DELETE) >= 0) {
-            m_watch = cutefish::base::EventLoop::current()->watch(m_inotify, EPOLLIN, [this](uint32_t) {
+            m_watch = properdesktop::base::EventLoop::current()->watch(m_inotify, EPOLLIN, [this](uint32_t) {
                 readEvents();
             });
         } else {
-            CF_WARNING(kLog) << "cutefish-privacy: cannot watch" << m_deviceDirectory << ::strerror(errno);
+            CF_WARNING(kLog) << "properdesktop-privacy: cannot watch" << m_deviceDirectory << ::strerror(errno);
         }
     }
 
@@ -128,13 +128,13 @@ void CaptureSwitches::lockCard(const std::string &name)
     const std::string path = m_deviceDirectory + '/' + name;
     const int fd = ::open(path.c_str(), O_RDWR | O_CLOEXEC);
     if (fd < 0) {
-        CF_WARNING(kLog) << "cutefish-privacy: cannot open" << path << ::strerror(errno);
+        CF_WARNING(kLog) << "properdesktop-privacy: cannot open" << path << ::strerror(errno);
         return;
     }
 
     const std::vector<snd_ctl_elem_id> switches = captureSwitches(fd);
     if (switches.empty()) {
-        CF_INFO(kLog) << "cutefish-privacy:" << name << "has no capture switch";
+        CF_INFO(kLog) << "properdesktop-privacy:" << name << "has no capture switch";
         ::close(fd);
         return;
     }
@@ -142,11 +142,11 @@ void CaptureSwitches::lockCard(const std::string &name)
     for (snd_ctl_elem_id id : switches) {
         // Locked before the write, so nothing turns it back on in between.
         if (::ioctl(fd, SNDRV_CTL_IOCTL_ELEM_LOCK, &id) < 0)
-            CF_WARNING(kLog) << "cutefish-privacy: cannot lock" << name << reinterpret_cast<const char *>(id.name)
+            CF_WARNING(kLog) << "properdesktop-privacy: cannot lock" << name << reinterpret_cast<const char *>(id.name)
                              << ::strerror(errno);
 
         if (!writeSwitch(fd, id, false))
-            CF_WARNING(kLog) << "cutefish-privacy: cannot turn off" << name
+            CF_WARNING(kLog) << "properdesktop-privacy: cannot turn off" << name
                              << reinterpret_cast<const char *>(id.name) << ::strerror(errno);
     }
 

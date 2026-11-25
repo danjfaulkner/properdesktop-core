@@ -14,5 +14,5 @@ void useOwnJournalStream(const std::string &identifier);
 
 // Starts a program whose output is forwarded, on a journal stream of its own
 // named after the program, when this process writes to the journal.
-bool startWithOwnJournalStream(cutefish::base::Process &process, const std::string &program,
+bool startWithOwnJournalStream(properdesktop::base::Process &process, const std::string &program,
                                const std::vector<std::string> &arguments = {});

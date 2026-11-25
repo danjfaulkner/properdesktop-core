@@ -1,5 +1,0 @@
-[D-BUS Service]
-Name=org.cutefish.Privacy
-Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/cutefish-privacy
-User=root
-SystemdService=cutefish-privacy.service

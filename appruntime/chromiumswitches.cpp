@@ -24,7 +24,7 @@ bool isChromiumProgram(const std::string &program)
 {
     const std::string path = program.find('/') != std::string::npos
             ? program
-            : cutefish::base::paths::findExecutable(program);
+            : properdesktop::base::paths::findExecutable(program);
     if (path.empty())
         return false;
 

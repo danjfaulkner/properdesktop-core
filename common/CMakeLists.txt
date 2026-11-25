@@ -4,7 +4,7 @@
 pkg_check_modules(ICU REQUIRED IMPORTED_TARGET icu-uc)
 pkg_check_modules(CommonSystemd REQUIRED IMPORTED_TARGET libsystemd)
 
-add_library(cutefish-core-common STATIC
+add_library(properdesktop-core-common STATIC
     detached_call.cpp
     detached_call.h
     detached_process.cpp
@@ -20,8 +20,8 @@ add_library(cutefish-core-common STATIC
     runtime_client.cpp
     runtime_client.h
 )
-target_include_directories(cutefish-core-common PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_link_libraries(cutefish-core-common
-    PUBLIC Cutefish::ToolkitBase
+target_include_directories(properdesktop-core-common PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(properdesktop-core-common
+    PUBLIC ProperDesktop::ToolkitBase
     PRIVATE PkgConfig::ICU PkgConfig::CommonSystemd
 )

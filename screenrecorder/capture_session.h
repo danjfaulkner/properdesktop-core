@@ -1,8 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Reion Wong <reionwong@gmail.com>
 // SPDX-License-Identifier: BSD-3-Clause
 
-#ifndef CUTEFISH_RECORDER_CAPTURE_SESSION_H
-#define CUTEFISH_RECORDER_CAPTURE_SESSION_H
+#ifndef PROPERDESKTOP_RECORDER_CAPTURE_SESSION_H
+#define PROPERDESKTOP_RECORDER_CAPTURE_SESSION_H
 
 #include "image.h"
 
@@ -61,7 +61,7 @@ public:
     bool usesDmaBuf() const { return m_gbm && m_memory == Memory::DmaBuf; }
     //! The render node the DMA-BUFs belong to.
     const std::string &renderNode() const { return m_renderNode; }
-    cutefish::base::Size bufferSize() const { return m_size; }
+    properdesktop::base::Size bufferSize() const { return m_size; }
     bool isCapturing() const { return m_frame != nullptr; }
 
     //! Asks for the next frame. False while one is pending, before the
@@ -88,7 +88,7 @@ private:
         size_t length = 0;
         gbm_bo *bo = nullptr;
         DmaBuf dmabuf;
-        cutefish::base::Size size;
+        properdesktop::base::Size size;
         bool held = false;
         //! From before a size change; freed once nobody uses it.
         bool retired = false;
@@ -112,8 +112,8 @@ private:
     std::map<int, std::unique_ptr<Buffer>> m_buffers;
     int m_nextBuffer = 0;
     int m_frameBuffer = -1;
-    cutefish::base::Size m_size;
-    cutefish::base::Size m_pendingSize;
+    properdesktop::base::Size m_size;
+    properdesktop::base::Size m_pendingSize;
     bool m_pendingArgb = false;
     Memory m_memory;
     dev_t m_pendingDevice = 0;
@@ -128,4 +128,4 @@ private:
     int64_t m_framePresentedNs = 0;
 };
 
-#endif // CUTEFISH_RECORDER_CAPTURE_SESSION_H
+#endif // PROPERDESKTOP_RECORDER_CAPTURE_SESSION_H

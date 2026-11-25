@@ -13,8 +13,8 @@
 #include "base/logging.h"
 #include "base/strings.h"
 
-using namespace cutefish::base;
-using namespace cutefish::base::strings;
+using namespace properdesktop::base;
+using namespace properdesktop::base::strings;
 
 static const char login1Service[] = "org.freedesktop.login1";
 static const char polkitService[] = "org.freedesktop.PolicyKit1";
@@ -25,7 +25,7 @@ static const int maxTries = 3;
 
 static const LogCategory &log()
 {
-    static const LogCategory category("cutefish.polkit");
+    static const LogCategory category("properdesktop.polkit");
     return category;
 }
 

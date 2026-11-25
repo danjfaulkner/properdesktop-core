@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 
-using namespace cutefish::core;
+using namespace properdesktop::core;
 
 TEST(LanguageEnvironment, codesBecomePosixNames)
 {
@@ -150,9 +150,9 @@ TEST(ProxyEnvironment, manualModeSetsEveryVariable)
 
 TEST(GSettingsKeyfile, untouchedLinesStay)
 {
-    cutefish::base::file::TemporaryDirectory directory(std::filesystem::temp_directory_path().string());
+    properdesktop::base::file::TemporaryDirectory directory(std::filesystem::temp_directory_path().string());
     const std::string path = directory.path() + "/keyfile";
-    ASSERT_TRUE(cutefish::base::file::writeAtomically(
+    ASSERT_TRUE(properdesktop::base::file::writeAtomically(
             path, "# comment\n[system/proxy]\nmode='manual'\nother = 'kept'\n\n[org/gnome/desktop/interface]\n"
                   "gtk-theme='Adwaita'\n"));
 
@@ -170,7 +170,7 @@ TEST(GSettingsKeyfile, untouchedLinesStay)
               (std::vector<std::string> {"a", "b'c"}));
     EXPECT_TRUE(gsettings::toBool(gsettings::boolValue(true), false));
 
-    const std::string contents = cutefish::base::file::read(path).value_or("");
+    const std::string contents = properdesktop::base::file::read(path).value_or("");
     EXPECT_TRUE(contents.starts_with("# comment\n[system/proxy]\n"));
     EXPECT_NE(contents.find("other = 'kept'\n"), std::string::npos);
     EXPECT_NE(contents.find("gtk-theme='Adwaita'\n"), std::string::npos);

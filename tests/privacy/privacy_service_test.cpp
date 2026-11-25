@@ -18,22 +18,22 @@
 
 #include <gtest/gtest.h>
 
-namespace dbus = cutefish::base::dbus;
+namespace dbus = properdesktop::base::dbus;
 using namespace std::chrono_literals;
 
 // polkit, answering every check with "authorized" after @p delay, as when an
 // administrator types a password. Runs in a child process of its own.
 [[noreturn]] static void runSlowPolkit(int readyFd, std::chrono::milliseconds delay)
 {
-    cutefish::base::EventLoop loop;
+    properdesktop::base::EventLoop loop;
     dbus::Connection *bus = dbus::Connection::session(&loop);
     if (!bus)
         _exit(1);
 
     dbus::Object authority(bus, "/org/freedesktop/PolicyKit1/Authority", "org.freedesktop.PolicyKit1.Authority");
-    std::vector<std::unique_ptr<cutefish::base::Timer>> answers;
+    std::vector<std::unique_ptr<properdesktop::base::Timer>> answers;
     authority.addMethod("CheckAuthorization", "(sa{sv})sa{ss}us", "(bba{ss})", [&](dbus::MethodCall &call) {
-        auto timer = std::make_unique<cutefish::base::Timer>();
+        auto timer = std::make_unique<properdesktop::base::Timer>();
         timer->setSingleShot(true);
         timer->onTimeout = [call]() mutable {
             call.reply(std::tuple<bool, bool, std::map<std::string, std::string>>(true, false, {}));
@@ -66,17 +66,17 @@ TEST(PrivacyServiceTest, StaysUpUntilAPendingAuthorizationIsAnswered)
     ASSERT_EQ(::read(ready[0], &marker, 1), 1);
     ::close(ready[0]);
 
-    cutefish::base::file::TemporaryDirectory state(std::filesystem::temp_directory_path().string(), "privacy-test-");
+    properdesktop::base::file::TemporaryDirectory state(std::filesystem::temp_directory_path().string(), "privacy-test-");
     ASSERT_TRUE(state.isValid());
 
-    cutefish::base::EventLoop loop;
+    properdesktop::base::EventLoop loop;
     dbus::Connection *bus = dbus::Connection::session(&loop);
     ASSERT_NE(bus, nullptr);
 
     // Turning the camera on while it is on changes no device.
     PrivacyService service(state.path(), 200ms);
     ASSERT_TRUE(service.exportTo(bus));
-    ASSERT_TRUE(bus->requestName("org.cutefish.Privacy"));
+    ASSERT_TRUE(bus->requestName("org.properdesktop.Privacy"));
 
     bool replied = false;
     bool idleBeforeReply = false;
@@ -86,14 +86,14 @@ TEST(PrivacyServiceTest, StaysUpUntilAPendingAuthorizationIsAnswered)
         loop.quit(0);
     };
 
-    cutefish::base::Timer deadline;
+    properdesktop::base::Timer deadline;
     deadline.setSingleShot(true);
     deadline.onTimeout = [&] {
         loop.quit(1);
     };
     deadline.start(10s);
 
-    const dbus::Proxy privacy(bus, "org.cutefish.Privacy", "/org/cutefish/Privacy", "org.cutefish.Privacy");
+    const dbus::Proxy privacy(bus, "org.properdesktop.Privacy", "/org/properdesktop/Privacy", "org.properdesktop.Privacy");
     const dbus::PendingCall call = privacy.callAsync(
             "setCameraEnabled",
             [&](const dbus::Reply &reply) {

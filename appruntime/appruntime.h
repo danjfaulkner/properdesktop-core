@@ -24,7 +24,7 @@ public:
     AppRuntime();
 
     // What every launched application gets, apart from its activation token.
-    static cutefish::core::Environment applicationEnvironment();
+    static properdesktop::core::Environment applicationEnvironment();
 
     uint32_t launchApplication(const std::string &appId, const std::vector<std::string> &arguments,
                                const std::string &activationToken = {});
@@ -41,8 +41,8 @@ public:
     // Gets a bundle while nothing runs bundles.
     std::function<void(const std::string &path, const std::string &activationToken)> offerBundleRunner;
 
-    cutefish::base::Signal<const std::string &, uint32_t> applicationLaunched;
-    cutefish::base::Signal<const std::string &, uint32_t> applicationQuit;
+    properdesktop::base::Signal<const std::string &, uint32_t> applicationLaunched;
+    properdesktop::base::Signal<const std::string &, uint32_t> applicationQuit;
 
 private:
     struct Instance {
@@ -64,7 +64,7 @@ private:
 
     // pid -> instance
     std::map<uint32_t, Instance> m_instances;
-    cutefish::base::Timer m_reaper;
+    properdesktop::base::Timer m_reaper;
 };
 
 #endif // APPRUNTIME_H

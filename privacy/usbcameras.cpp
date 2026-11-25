@@ -15,14 +15,14 @@
 #include <unistd.h>
 #include <vector>
 
-static const cutefish::base::LogCategory kLog("cutefish.privacy");
+static const properdesktop::base::LogCategory kLog("properdesktop.privacy");
 
 static constexpr char kVideoClass[] = "0e";
 
 static std::string readAttribute(const std::string &path)
 {
-    const auto contents = cutefish::base::file::read(path);
-    return contents ? std::string(cutefish::base::strings::trimmed(*contents)) : std::string();
+    const auto contents = properdesktop::base::file::read(path);
+    return contents ? std::string(properdesktop::base::strings::trimmed(*contents)) : std::string();
 }
 
 static bool writeAttribute(const std::string &path, const std::string &value)
@@ -33,7 +33,7 @@ static bool writeAttribute(const std::string &path, const std::string &value)
     if (fd >= 0)
         ::close(fd);
     if (!written) {
-        CF_WARNING(kLog) << "cutefish-privacy: cannot write" << path << std::strerror(error);
+        CF_WARNING(kLog) << "properdesktop-privacy: cannot write" << path << std::strerror(error);
         return false;
     }
 

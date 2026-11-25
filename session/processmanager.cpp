@@ -30,15 +30,15 @@
 #include "userdirectories.h"
 #include "xwaylandenvironment.h"
 
-namespace base = cutefish::base;
-namespace strings = cutefish::base::strings;
-namespace dbus = cutefish::base::dbus;
-namespace runtime = cutefish::core::runtime;
+namespace base = properdesktop::base;
+namespace strings = properdesktop::base::strings;
+namespace dbus = properdesktop::base::dbus;
+namespace runtime = properdesktop::core::runtime;
 using namespace std::chrono_literals;
-using cutefish::i18n::format;
-using cutefish::i18n::tr;
+using properdesktop::i18n::format;
+using properdesktop::i18n::tr;
 
-static constexpr char kCompositor[] = "/usr/bin/cutefish-compositor";
+static constexpr char kCompositor[] = "/usr/bin/properdesktop-compositor";
 
 struct Publisher
 {
@@ -94,7 +94,7 @@ ProcessManager::ProcessManager()
     : m_compositorProcess(std::make_unique<CompositorProcess>())
     , m_shellConnection(std::make_unique<ShellConnection>())
     , m_shellProcess(std::make_unique<ShellProcess>())
-    , m_shellRestart(std::make_unique<RestartPolicy>("cutefish-filemanager", [this] { startShell(); }))
+    , m_shellRestart(std::make_unique<RestartPolicy>("properdesktop-filemanager", [this] { startShell(); }))
 {
     m_shellProcess->onFinished = [this](int code, bool crashed) {
         onShellFinished(code, crashed);
@@ -108,7 +108,7 @@ ProcessManager::ProcessManager()
         m_servicesWatch = {};
         if (m_loggingOut)
             return;
-        CF_WARNING(sessionLog()) << "cutefish-services did not take its bus name; starting the desktop without it";
+        CF_WARNING(sessionLog()) << "properdesktop-services did not take its bus name; starting the desktop without it";
         startDesktopProcess();
     };
     m_exitTimer.setSingleShot(true);
@@ -126,7 +126,7 @@ void ProcessManager::start()
         return;
     m_started = true;
 
-    m_waylandSocket = environmentValue("WAYLAND_DISPLAY", "cutefish-0");
+    m_waylandSocket = environmentValue("WAYLAND_DISPLAY", "properdesktop-0");
     const std::string runtimeDir = environmentValue("XDG_RUNTIME_DIR", "/tmp");
     m_controlSocket = runtimeDir + '/' + m_waylandSocket + "-shell.control";
 
@@ -207,12 +207,12 @@ void ProcessManager::startAfterCompositorReady()
     // gets a fresh Wayland socketpair over it.
     if (!m_shellConnection->connectToCompositor(m_controlSocket)) {
         CF_WARNING(sessionLog()) << "No compositor control channel; the shell will run without "
-                                    "the private Cutefish protocols";
+                                    "the private Proper Desktop protocols";
     }
 
     // Application autostart waits for the existing external services daemon.
     if (dbus::Connection *bus = dbus::Connection::session()) {
-        m_servicesWatch = bus->watchName("org.cutefish.Services", [this](const std::string &owner) {
+        m_servicesWatch = bus->watchName("org.properdesktop.Services", [this](const std::string &owner) {
             if (owner.empty())
                 return;
             m_servicesWatch = {};
@@ -233,7 +233,7 @@ void ProcessManager::startShell()
         return;
 
     m_shellRestart->started();
-    m_shellProcess->startForSession("cutefish-filemanager", m_waylandSocket,
+    m_shellProcess->startForSession("properdesktop-filemanager", m_waylandSocket,
                                     m_shellConnection->isConnected() ? m_shellConnection.get() : nullptr);
 }
 
@@ -267,8 +267,8 @@ void ProcessManager::endAfterApplications(Ending ending, std::function<bool()> t
         m_ending = then();
         return;
     }
-    const dbus::Message quitAll = bus->newMethodCall("org.cutefish.Applications1", "/org/cutefish/Applications1",
-                                                     "org.cutefish.Applications1", "QuitAll");
+    const dbus::Message quitAll = bus->newMethodCall("org.properdesktop.Applications1", "/org/properdesktop/Applications1",
+                                                     "org.properdesktop.Applications1", "QuitAll");
     // No timeout: the user may take as long as they like over an unsaved document.
     m_quitAllCall = bus->callAsync(
             quitAll,
@@ -345,14 +345,14 @@ void ProcessManager::leave()
     m_loggingOut = true;
     stopRestarts();
 
-    // Under cutefish-dm the login screen comes up on its own VT first, and the
+    // Under properdesktop-dm the login screen comes up on its own VT first, and the
     // reply comes once it is on screen: this session then ends where nobody sees
     // it. Another display manager does not answer, and the session ends as before.
     bool switched = false;
     if (dbus::Connection *system = dbus::Connection::system()) {
         const dbus::Message switchToGreeter =
-                system->newMethodCall("org.cutefish.DisplayManager", "/org/cutefish/DisplayManager",
-                                      "org.cutefish.DisplayManager", "SwitchToGreeter");
+                system->newMethodCall("org.properdesktop.DisplayManager", "/org/properdesktop/DisplayManager",
+                                      "org.properdesktop.DisplayManager", "SwitchToGreeter");
         const dbus::Reply reply = system->call(switchToGreeter, 15s);
         switched = !reply.isError();
         if (reply.isError() && reply.error().name != "org.freedesktop.DBus.Error.ServiceUnknown")
@@ -460,7 +460,7 @@ void ProcessManager::startDesktopProcess()
     startShell();
     // Without it every administrator prompt fails, so it is restarted as the
     // core processes are.
-    startCoreProcess("cutefish-polkit-agent");
+    startCoreProcess("properdesktop-polkit-agent");
 
     // Auto start
     m_autostartTimer.start(100ms);
@@ -470,8 +470,8 @@ void ProcessManager::startDaemonProcess()
 {
     // The application runtime owns every application start, so it has to be up
     // before anything that may want to launch one.
-    startCoreProcess("cutefish-appruntime");
-    startCoreProcess("cutefish-services");
+    startCoreProcess("properdesktop-appruntime");
+    startCoreProcess("properdesktop-services");
 }
 
 void ProcessManager::startCoreProcess(const std::string &program, const std::vector<std::string> &arguments)
@@ -522,7 +522,7 @@ void ProcessManager::loadAutoStartProcess()
         if (std::filesystem::is_directory(path, error) && std::find(dirs.begin(), dirs.end(), path) == dirs.end())
             dirs.push_back(path);
     }
-    const auto desktops = strings::split(environmentValue("XDG_CURRENT_DESKTOP", "Cutefish"), ':',
+    const auto desktops = strings::split(environmentValue("XDG_CURRENT_DESKTOP", "ProperDesktop"), ':',
                                       strings::SplitBehavior::SkipEmptyParts);
     const auto execList = autostartEntries(dirs, desktops);
 

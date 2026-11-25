@@ -10,7 +10,7 @@
 
 // The locale variables an application is started with, from the languages the
 // user picked in the services' settings.
-namespace cutefish::core::language {
+namespace properdesktop::core::language {
 
 // The system's default language, until the user picks one.
 std::string systemLanguage();
@@ -34,4 +34,4 @@ std::string formatsLocale(const std::string& code, const std::string& region);
 void apply(Environment& environment, const std::vector<std::string>& codes, const std::string& region = {});
 void apply(Environment& environment);
 
-} // namespace cutefish::core::language
+} // namespace properdesktop::core::language

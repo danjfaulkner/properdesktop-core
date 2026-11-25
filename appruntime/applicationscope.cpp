@@ -11,9 +11,9 @@
 
 #include <signal.h>
 
-namespace dbus = cutefish::base::dbus;
+namespace dbus = properdesktop::base::dbus;
 
-static const cutefish::base::LogCategory kLog("cutefish.appruntime");
+static const properdesktop::base::LogCategory kLog("properdesktop.appruntime");
 
 // (sv) and (sa(sv)): unit properties and auxiliary units.
 using UnitProperty = std::tuple<std::string, dbus::Variant>;
@@ -50,7 +50,7 @@ static dbus::Message managerCall(dbus::Connection *bus, const char *method)
 
 std::string ApplicationScope::unitName(const std::string &appId, uint32_t pid)
 {
-    return "app-cutefish-" + escape(appId) + '-' + std::to_string(pid) + ".scope";
+    return "app-properdesktop-" + escape(appId) + '-' + std::to_string(pid) + ".scope";
 }
 
 void ApplicationScope::adopt(const std::string &appId, uint32_t pid)
@@ -66,7 +66,7 @@ void ApplicationScope::adopt(const std::string &appId, uint32_t pid)
     };
     dbus::Message call = managerCall(bus, "StartTransientUnit");
     call.append(unitName(appId, pid), std::string("fail"), properties, std::vector<AuxiliaryUnit>());
-    cutefish::core::callDetached(bus, call, [appId, pid](const dbus::Reply &reply) {
+    properdesktop::core::callDetached(bus, call, [appId, pid](const dbus::Reply &reply) {
         if (reply.isError())
             CF_WARNING(kLog) << "AppRuntime: no systemd scope for" << appId << pid << reply.error().message;
     });
@@ -89,9 +89,9 @@ bool ApplicationScope::killAllOf(uint32_t pid)
         return false;
     dbus::Message list = managerCall(bus, "ListUnitsByPatterns");
     list.append(std::vector<std::string> {"active", "activating", "deactivating"},
-                std::vector<std::string> {"app-cutefish-*-" + std::to_string(pid) + ".scope"});
+                std::vector<std::string> {"app-properdesktop-*-" + std::to_string(pid) + ".scope"});
     // The session connection outlives the call.
-    cutefish::core::callDetached(bus, list, [pid](const dbus::Reply &reply) {
+    properdesktop::core::callDetached(bus, list, [pid](const dbus::Reply &reply) {
         std::vector<UnitInfo> units;
         if (!reply.read(units)) {
             CF_WARNING(kLog) << "AppRuntime: cannot list the application scopes:" << reply.error().message;
@@ -107,7 +107,7 @@ bool ApplicationScope::killAllOf(uint32_t pid)
 
 bool ApplicationScope::namesProcess(const std::string &unitName, uint32_t pid)
 {
-    static constexpr std::string_view kPrefix = "app-cutefish-";
+    static constexpr std::string_view kPrefix = "app-properdesktop-";
     const std::string suffix = '-' + std::to_string(pid) + ".scope";
     if (unitName.size() <= kPrefix.size() + suffix.size() || !unitName.starts_with(kPrefix)
         || !unitName.ends_with(suffix))
@@ -127,7 +127,7 @@ void ApplicationScope::stopAll()
     dbus::Message list = managerCall(bus, "ListUnitsByPatterns");
     list.append(std::vector<std::string> {"active", "activating"}, std::vector<std::string> {"app-*.scope"});
     // The session connection outlives the call.
-    cutefish::core::callDetached(bus, list, [bus](const dbus::Reply &reply) {
+    properdesktop::core::callDetached(bus, list, [bus](const dbus::Reply &reply) {
         std::vector<UnitInfo> units;
         if (!reply.read(units)) {
             CF_WARNING(kLog) << "AppRuntime: cannot list the application scopes:" << reply.error().message;

@@ -21,10 +21,10 @@
 #include <utility>
 #include <unistd.h>
 
-namespace cutefish::core::language {
+namespace properdesktop::core::language {
 
-namespace base = cutefish::base;
-namespace strings = cutefish::base::strings;
+namespace base = properdesktop::base;
+namespace strings = properdesktop::base::strings;
 
 static void removeDuplicates(std::vector<std::string>& list)
 {
@@ -73,7 +73,7 @@ static std::string utf8Locale(std::string name)
 }
 
 // A locale generated while this process runs is not in the archive it mapped,
-// and the C library remembers a failed lookup; cutefish-locales generates
+// and the C library remembers a failed lookup; properdesktop-locales generates
 // directories, which name it either way.
 bool isAvailable(const std::string& name)
 {
@@ -139,7 +139,7 @@ std::string systemLanguage()
 
 std::vector<std::string> preferredLanguages()
 {
-    const base::Settings settings(base::paths::cutefishConfig("services"));
+    const base::Settings settings(base::paths::properdesktopConfig("services"));
     const std::string primary = settings.stringValue("Language/language");
     if (primary.empty())
         return {systemLanguage()};
@@ -160,11 +160,11 @@ std::string localeFor(const std::string& code)
 
 std::string region()
 {
-    const base::Settings settings(base::paths::cutefishConfig("services"));
+    const base::Settings settings(base::paths::properdesktopConfig("services"));
     return strings::toAsciiUpper(settings.stringValue("Region/region"));
 }
 
-// The UTF-8 locales /usr/share/i18n/SUPPORTED lists, which cutefish-locales
+// The UTF-8 locales /usr/share/i18n/SUPPORTED lists, which properdesktop-locales
 // can generate.
 static const std::vector<std::string>& supportedLocales()
 {
@@ -288,4 +288,4 @@ void apply(Environment& environment)
     language::apply(environment, preferredLanguages(), region());
 }
 
-} // namespace cutefish::core::language
+} // namespace properdesktop::core::language

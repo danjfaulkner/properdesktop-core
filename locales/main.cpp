@@ -12,14 +12,14 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    cutefish::base::EventLoop loop;
-    static const cutefish::base::LogCategory log("cutefish.locales");
+    properdesktop::base::EventLoop loop;
+    static const properdesktop::base::LogCategory log("properdesktop.locales");
 
     LocalesService service;
 
-    cutefish::base::dbus::Connection *bus = cutefish::base::dbus::Connection::system(&loop);
-    if (!bus || !service.exportTo(bus) || !bus->requestName("org.cutefish.Locales")) {
-        CF_WARNING(log) << "cutefish-locales: cannot register on the system bus";
+    properdesktop::base::dbus::Connection *bus = properdesktop::base::dbus::Connection::system(&loop);
+    if (!bus || !service.exportTo(bus) || !bus->requestName("org.properdesktop.Locales")) {
+        CF_WARNING(log) << "properdesktop-locales: cannot register on the system bus";
         return 1;
     }
 

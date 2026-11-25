@@ -36,9 +36,9 @@ public:
     explicit LocalesService(Paths paths, std::chrono::milliseconds idleTimeout = std::chrono::seconds(60));
     ~LocalesService();
 
-    // Exports org.cutefish.Locales at /org/cutefish/Locales on the bus; false
+    // Exports org.properdesktop.Locales at /org/properdesktop/Locales on the bus; false
     // when the object cannot be added.
-    bool exportTo(cutefish::base::dbus::Connection *bus);
+    bool exportTo(properdesktop::base::dbus::Connection *bus);
 
     // Names such as "ja_JP.UTF-8" that can be generated here.
     bool isSupported(const std::string &name) const;
@@ -53,19 +53,19 @@ public:
 private:
     struct Job
     {
-        cutefish::base::dbus::MethodCall call;
+        properdesktop::base::dbus::MethodCall call;
         std::vector<std::string> names;
     };
 
-    void generate(cutefish::base::dbus::MethodCall &call);
+    void generate(properdesktop::base::dbus::MethodCall &call);
     void runNext();
     void finishJob(bool succeeded);
 
     Paths m_paths;
-    cutefish::base::Timer m_idleTimer;
-    cutefish::base::dbus::Connection *m_bus = nullptr;
-    std::unique_ptr<cutefish::base::dbus::Object> m_object;
+    properdesktop::base::Timer m_idleTimer;
+    properdesktop::base::dbus::Connection *m_bus = nullptr;
+    std::unique_ptr<properdesktop::base::dbus::Object> m_object;
     std::deque<Job> m_jobs;
-    std::unique_ptr<cutefish::base::Process> m_localedef;
+    std::unique_ptr<properdesktop::base::Process> m_localedef;
     int m_pendingAuthorizations = 0;
 };

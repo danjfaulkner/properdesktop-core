@@ -6,9 +6,9 @@
 
 int main(int argc, char* argv[])
 {
-    useOwnJournalStream("cutefish-session");
+    useOwnJournalStream("properdesktop-session");
 
-    cutefish::base::EventLoop loop;
+    properdesktop::base::EventLoop loop;
     Application a(argc, argv, loop);
 
     return a.exec();

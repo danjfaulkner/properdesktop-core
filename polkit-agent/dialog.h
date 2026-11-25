@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-namespace cutefish::ui {
+namespace properdesktop::ui {
 class DialogButton;
 class Label;
 class TextField;
@@ -43,7 +43,7 @@ public:
     const std::string &notice() const { return m_notice; }
     bool noticeIsError() const { return m_noticeIsError; }
 
-    cutefish::ui::Window *window() const { return m_window.get(); }
+    properdesktop::ui::Window *window() const { return m_window.get(); }
 
     // Authenticate or Return with a password typed.
     std::function<void()> onAccepted;
@@ -67,10 +67,10 @@ private:
     std::string m_notice;
     bool m_noticeIsError = false;
 
-    std::unique_ptr<cutefish::ui::Window> m_window;
-    cutefish::ui::TextField *m_passwordInput = nullptr;
-    cutefish::ui::Label *m_noticeLabel = nullptr;
-    cutefish::ui::DialogButton *m_doneButton = nullptr;
+    std::unique_ptr<properdesktop::ui::Window> m_window;
+    properdesktop::ui::TextField *m_passwordInput = nullptr;
+    properdesktop::ui::Label *m_noticeLabel = nullptr;
+    properdesktop::ui::DialogButton *m_doneButton = nullptr;
 };
 
 #endif // DIALOG_H

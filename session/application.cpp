@@ -27,8 +27,8 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-namespace base = cutefish::base;
-namespace dbus = cutefish::base::dbus;
+namespace base = properdesktop::base;
+namespace dbus = properdesktop::base::dbus;
 using namespace std::chrono_literals;
 
 static std::optional<std::vector<std::string>> getSystemdEnvironment()
@@ -90,7 +90,7 @@ Application::Application(int argc, char **argv, base::EventLoop &loop)
     exportSession();
 
     base::CommandLineParser parser;
-    parser.setApplicationDescription("Cutefish Session");
+    parser.setApplicationDescription("Proper Desktop Session");
     parser.addHelpOption();
 
     parser.process(argc, argv);
@@ -111,7 +111,7 @@ Application::Application(int argc, char **argv, base::EventLoop &loop)
     importSystemdEnvironment();
     // The language the session runs in is known only now.
     base::Locale::setProcessLocale();
-    cutefish::i18n::setDomain("cutefish-core");
+    properdesktop::i18n::setDomain("properdesktop-core");
 
     m_startTimer.setSingleShot(true);
     m_startTimer.onTimeout = [this] {
@@ -160,20 +160,20 @@ void Application::exportSession()
     if (!bus)
         return;
 
-    m_sessionObject = std::make_unique<dbus::Object>(bus, "/Session", "org.cutefish.Session");
+    m_sessionObject = std::make_unique<dbus::Object>(bus, "/Session", "org.properdesktop.Session");
     m_sessionObject->addMethod("logout", [this] { logout(); });
     m_sessionObject->addMethod("reboot", [this] { reboot(); });
     m_sessionObject->addMethod("powerOff", [this] { powerOff(); });
     m_sessionObject->addMethod("suspend", [this] { return suspend(); }, {{}, {"result"}});
     m_sessionObject->addMethod("startDesktopProcess", [this] { startDesktopProcess(); });
     m_sessionObject->publish();
-    bus->requestName("org.cutefish.Session");
+    bus->requestName("org.properdesktop.Session");
     m_language = std::make_unique<base::SessionLanguage>(bus);
 }
 
 void Application::endSessionOnTerminationSignals()
 {
-    // cutefish-dm and systemd end a session with SIGTERM; dying of it would leave
+    // properdesktop-dm and systemd end a session with SIGTERM; dying of it would leave
     // the compositor and services holding the Wayland socket against the next login.
     // A handler, unlike signalfd's blocked mask, is not inherited by child processes.
     if (::socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC | SOCK_NONBLOCK, 0, s_terminationSocket)
@@ -213,24 +213,24 @@ void Application::initEnvironments()
         setenv("XDG_CONFIG_DIRS", "/etc/xdg", 1);
 
     // Environment
-    setenv("DESKTOP_SESSION", "Cutefish", 1);
-    setenv("XDG_CURRENT_DESKTOP", "Cutefish", 1);
-    setenv("XDG_SESSION_DESKTOP", "Cutefish", 1);
+    setenv("DESKTOP_SESSION", "ProperDesktop", 1);
+    setenv("XDG_CURRENT_DESKTOP", "ProperDesktop", 1);
+    setenv("XDG_SESSION_DESKTOP", "ProperDesktop", 1);
     // Chromium and Electron apps (Claude, VS Code, the browsers) pick their password store from the
-    // desktop's name and know no "Cutefish": they would keep secrets in plain text and say there is
+    // desktop's name and know no "ProperDesktop": they would keep secrets in plain text and say there is
     // no keychain. This older GNOME marker, which they still read when the names above say nothing
     // to them, sends them to the Secret Service (GNOME Keyring) instead. It also has them take the
     // window button layout from the session's GTK settings, which put the buttons on the right.
     setenv("GNOME_DESKTOP_SESSION_ID", "this-is-deprecated", 1);
 
-    // GLib's plain-text backend: cutefish-services writes the GTK appearance keys into
+    // GLib's plain-text backend: properdesktop-services writes the GTK appearance keys into
     // ~/.config/glib-2.0/settings/keyfile, and no dconf daemon is needed.
     setenv("GSETTINGS_BACKEND", "keyfile", 1);
 
     // Qt
     if (isEmptyVariable("WAYLAND_DISPLAY"))
-        setenv("WAYLAND_DISPLAY", "cutefish-0", 1);
-    setenv("QT_QPA_PLATFORMTHEME", "cutefish", 1);
+        setenv("WAYLAND_DISPLAY", "properdesktop-0", 1);
+    setenv("QT_QPA_PLATFORMTHEME", "properdesktop", 1);
 
     // ref:
     // https://stackoverflow.com/questions/34399993/qml-performance-issue-when-updating-an-item-in-presence-of-many-non-overlapping
@@ -244,8 +244,8 @@ void Application::initEnvironments()
 
 void Application::initLanguage()
 {
-    cutefish::core::Environment environment = cutefish::core::processEnvironment();
-    cutefish::core::language::apply(environment);
+    properdesktop::core::Environment environment = properdesktop::core::processEnvironment();
+    properdesktop::core::language::apply(environment);
     for (const auto &[name, value] : environment) {
         if (name == "LANG" || name == "LANGUAGE" || name.starts_with("LC_"))
             setenv(name.c_str(), value.c_str(), 1);
@@ -273,7 +273,7 @@ bool Application::syncDBusEnvironment()
 
 // Import systemd user environment.
 // Systemd read ~/.config/environment.d which applies to all systemd user unit.
-// But it won't work if cutefishDE is not started by systemd.
+// But it won't work if properdesktopDE is not started by systemd.
 void Application::importSystemdEnvironment()
 {
     const auto environment = getSystemdEnvironment();
@@ -320,7 +320,7 @@ int Application::runSync(const std::string &program, const std::vector<std::stri
     p.waitForFinished(std::chrono::hours(24));
 
     if (exitCode)
-        CF_WARNING(sessionLog()) << program << cutefish::base::strings::join(args, " ") << "exited with code" << exitCode;
+        CF_WARNING(sessionLog()) << program << properdesktop::base::strings::join(args, " ") << "exited with code" << exitCode;
 
     return exitCode;
 }

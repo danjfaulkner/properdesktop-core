@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 namespace fs = std::filesystem;
-namespace file = cutefish::base::file;
+namespace file = properdesktop::base::file;
 
 class ApplicationsFolderTest : public ::testing::Test
 {
@@ -52,8 +52,8 @@ protected:
         return staging;
     }
 
-    cutefish::base::EventLoop m_loop;
-    file::TemporaryDirectory m_root {fs::temp_directory_path().string(), "cutefish-test-"};
+    properdesktop::base::EventLoop m_loop;
+    file::TemporaryDirectory m_root {fs::temp_directory_path().string(), "properdesktop-test-"};
     std::string m_folder;
     std::unique_ptr<ApplicationsFolderService> m_service;
 };

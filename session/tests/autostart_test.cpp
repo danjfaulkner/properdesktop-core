@@ -7,7 +7,7 @@
 #include "base/file.h"
 #include "testutil.h"
 
-using cutefish::base::file::TemporaryDirectory;
+using properdesktop::base::file::TemporaryDirectory;
 using Entries = std::vector<std::string>;
 
 static void entry(const std::string& dir, const std::string& name, const std::string& values)
@@ -34,21 +34,21 @@ TEST(Autostart, overrides)
     entry(user, "duplicate", "Exec=new\n");
     entry(system, "filtered", "Exec=wrong-fallback\n");
     entry(user, "filtered", "Exec=other\nOnlyShowIn=KDE;\n");
-    EXPECT_EQ(autostartEntries({user, system, system}, {"Cutefish"}), Entries {"new"});
+    EXPECT_EQ(autostartEntries({user, system, system}, {"ProperDesktop"}), Entries {"new"});
 }
 
 TEST(Autostart, filtering)
 {
     TemporaryDirectory root(sessiontest::temporaryParent());
-    entry(root.path(), "allowed", "Exec=allowed\nOnlyShowIn=KDE;Cutefish;\n");
-    entry(root.path(), "excluded", "Exec=excluded\nNotShowIn=Cutefish;\n");
+    entry(root.path(), "allowed", "Exec=allowed\nOnlyShowIn=KDE;ProperDesktop;\n");
+    entry(root.path(), "excluded", "Exec=excluded\nNotShowIn=ProperDesktop;\n");
     entry(root.path(), "other", "Exec=other\nOnlyShowIn=KDE;\n");
     entry(root.path(), "hidden", "Exec=hidden\nHidden=true\n");
     entry(root.path(), "menu-hidden", "Exec=menu-hidden\nNoDisplay=true\n");
     entry(root.path(), "visible", "Exec=visible\nHidden=false\n");
     entry(root.path(), "disabled", "Exec=disabled\nX-GNOME-Autostart-enabled=false\n");
     entry(root.path(), "enabled", "Exec=enabled\nX-GNOME-Autostart-enabled=true\n");
-    EXPECT_EQ(autostartEntries({root.path()}, {"Cutefish"}),
+    EXPECT_EQ(autostartEntries({root.path()}, {"ProperDesktop"}),
               (Entries {"allowed", "enabled", "menu-hidden", "visible"}));
     EXPECT_TRUE(contains(autostartEntries({root.path()}, {"Other", "KDE"}), "other"));
 }
@@ -60,18 +60,18 @@ TEST(Autostart, tryExec)
     ASSERT_TRUE(sessiontest::writeFile(program, ""));
     ASSERT_EQ(::chmod(program.c_str(), 0600), 0);
     entry(root.path(), "absolute", "Exec=absolute\nTryExec=" + program + "\n");
-    entry(root.path(), "missing", "Exec=missing\nTryExec=cutefish-nonexistent-test-program\n");
+    entry(root.path(), "missing", "Exec=missing\nTryExec=properdesktop-nonexistent-test-program\n");
     entry(root.path(), "relative", "Exec=relative\nTryExec=./executable\n");
-    EXPECT_TRUE(autostartEntries({root.path()}, {"Cutefish"}).empty());
+    EXPECT_TRUE(autostartEntries({root.path()}, {"ProperDesktop"}).empty());
     ASSERT_EQ(::chmod(program.c_str(), 0700), 0);
-    EXPECT_EQ(autostartEntries({root.path()}, {"Cutefish"}), Entries {"absolute"});
+    EXPECT_EQ(autostartEntries({root.path()}, {"ProperDesktop"}), Entries {"absolute"});
     entry(root.path(), "path", "Exec=path\nTryExec=sh\n");
-    EXPECT_TRUE(contains(autostartEntries({root.path()}, {"Cutefish"}), "path"));
+    EXPECT_TRUE(contains(autostartEntries({root.path()}, {"ProperDesktop"}), "path"));
 }
 
 TEST(Autostart, sessionPrograms)
 {
-    EXPECT_TRUE(isStartedBySession("cutefish-polkit-agent"));
-    EXPECT_TRUE(isStartedBySession("cutefish-services"));
-    EXPECT_FALSE(isStartedBySession("cutefish-calendar-reminders"));
+    EXPECT_TRUE(isStartedBySession("properdesktop-polkit-agent"));
+    EXPECT_TRUE(isStartedBySession("properdesktop-services"));
+    EXPECT_FALSE(isStartedBySession("properdesktop-calendar-reminders"));
 }

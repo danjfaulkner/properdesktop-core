@@ -26,7 +26,7 @@ AudioCapture::~AudioCapture()
 
 bool AudioCapture::start(const std::string &target, std::string *error)
 {
-    m_loop = pw_thread_loop_new("cutefish-recorder-audio", nullptr);
+    m_loop = pw_thread_loop_new("properdesktop-recorder-audio", nullptr);
     if (!m_loop) {
         *error = "cannot start a PipeWire loop";
         return false;
@@ -35,7 +35,7 @@ bool AudioCapture::start(const std::string &target, std::string *error)
     pw_properties *properties = pw_properties_new(
             PW_KEY_MEDIA_TYPE, "Audio", PW_KEY_MEDIA_CATEGORY, "Capture", PW_KEY_MEDIA_ROLE,
             "Production", PW_KEY_APP_NAME, "Screen Recording", PW_KEY_NODE_NAME,
-            "cutefish-screenrecorder", nullptr);
+            "properdesktop-screenrecorder", nullptr);
     if (!target.empty())
         pw_properties_set(properties, PW_KEY_TARGET_OBJECT, target.c_str());
 

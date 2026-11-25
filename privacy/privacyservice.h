@@ -30,16 +30,16 @@ public:
     void setCameraEnabled(bool enabled);
     void setMicrophoneEnabled(bool enabled);
 
-    // Exports org.cutefish.Privacy at /org/cutefish/Privacy on the bus; false
+    // Exports org.properdesktop.Privacy at /org/properdesktop/Privacy on the bus; false
     // when the object cannot be added.
-    bool exportTo(cutefish::base::dbus::Connection *bus);
+    bool exportTo(properdesktop::base::dbus::Connection *bus);
 
     // Nothing called for a while and no lock needs this process alive.
     std::function<void()> onIdle;
 
 private:
     // Applies after polkit allowed the caller, and answers the call.
-    void authorize(cutefish::base::dbus::MethodCall &call, std::function<void()> apply);
+    void authorize(properdesktop::base::dbus::MethodCall &call, std::function<void()> apply);
     void applyCamera(bool enabled);
     void applyMicrophone(bool enabled);
     std::string flagPath(const char *device) const;
@@ -48,8 +48,8 @@ private:
     std::string m_stateDirectory;
     UsbCameras m_cameras;
     CaptureSwitches m_captureSwitches;
-    cutefish::base::Timer m_idleTimer;
+    properdesktop::base::Timer m_idleTimer;
     int m_pendingAuthorizations = 0;
-    cutefish::base::dbus::Connection *m_bus = nullptr;
-    std::unique_ptr<cutefish::base::dbus::Object> m_object;
+    properdesktop::base::dbus::Connection *m_bus = nullptr;
+    std::unique_ptr<properdesktop::base::dbus::Object> m_object;
 };

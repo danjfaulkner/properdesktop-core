@@ -17,7 +17,7 @@
 #include "battery/powersupply.h"
 #include "support/wait.h"
 
-using namespace cutefish::base;
+using namespace properdesktop::base;
 
 static const char devices[] = "/org/freedesktop/UPower/devices/";
 static const char deviceInterface[] = "org.freedesktop.UPower.Device";
@@ -190,7 +190,7 @@ protected:
         dbus::VariantMap properties;
         bool answered = false;
         const dbus::Proxy battery(m_reader.get(), dbus::Connection::session()->uniqueName(),
-                                  "/org/cutefish/Services/Battery", "org.cutefish.Services.Battery");
+                                  "/org/properdesktop/Services/Battery", "org.properdesktop.Services.Battery");
         const dbus::PendingCall call = battery.getAllAsync([&](const dbus::Reply &reply) {
             properties = reply.value<dbus::VariantMap>().value_or(dbus::VariantMap());
             answered = true;

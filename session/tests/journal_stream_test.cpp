@@ -16,9 +16,9 @@
 #include "journalstream.h"
 #include "testutil.h"
 
-using cutefish::base::EventLoop;
-using cutefish::base::Process;
-using cutefish::base::file::TemporaryDirectory;
+using properdesktop::base::EventLoop;
+using properdesktop::base::Process;
+using properdesktop::base::file::TemporaryDirectory;
 using sessiontest::runUntil;
 
 static ino_t inode(int fd)
@@ -41,12 +41,12 @@ static std::string journalLines(EventLoop &loop, const std::string &identifier)
 TEST(JournalStream, childWritesUnderItsProgramName)
 {
     EventLoop loop;
-    const int stream = sd_journal_stream_fd("cutefish-session-test", LOG_INFO, 1);
+    const int stream = sd_journal_stream_fd("properdesktop-session-test", LOG_INFO, 1);
     if (stream < 0)
         GTEST_SKIP() << "no journal";
 
     TemporaryDirectory root(sessiontest::temporaryParent());
-    const std::string name = "cutefish-journal-stream-test-" + std::to_string(::getpid());
+    const std::string name = "properdesktop-journal-stream-test-" + std::to_string(::getpid());
     const std::string program = root.path() + '/' + name;
     std::filesystem::create_symlink("/bin/sh", program);
 

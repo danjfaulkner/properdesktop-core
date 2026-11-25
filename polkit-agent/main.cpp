@@ -8,12 +8,12 @@
 
 int main(int argc, char *argv[])
 {
-    cutefish::ui::Application app(argc, argv);
-    app.setApplicationId("cutefish-polkit-agent");
+    properdesktop::ui::Application app(argc, argv);
+    app.setApplicationId("properdesktop-polkit-agent");
 
-    PolKitAgentListener listener(cutefish::base::dbus::Connection::system());
+    PolKitAgentListener listener(properdesktop::base::dbus::Connection::system());
 
-    if (!listener.registerAgent("/org/cutefish/PolicyKit1/AuthenticationAgent"))
+    if (!listener.registerAgent("/org/properdesktop/PolicyKit1/AuthenticationAgent"))
         return -1;
 
     return app.run();

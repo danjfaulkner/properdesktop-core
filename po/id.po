@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: cutefish-core\n"
-"Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
+"Project-Id-Version: properdesktop-core\n"
+"Report-Msgid-Bugs-To: https://github.com/danjfaulkner\n"
 "POT-Creation-Date: 2026-11-22 18:34+0800\n"
 "PO-Revision-Date: 2026-10-20 09:33+0800\n"
 "Last-Translator: \n"
@@ -12,255 +12,255 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "Calculating…"
 msgstr "Menghitung…"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{time} until fully charged"
 msgstr "{time} hingga terisi penuh"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{time} remaining"
 msgstr "{time} tersisa"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "Fully charged."
 msgstr "Terisi penuh."
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "Charging paused at {percent}%"
 msgstr "Pengisian dijeda pada {percent}%"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "Not charging"
 msgstr "Tidak mengisi daya"
 
 #. TRANSLATORS: days in a short battery time such as "1d 2h 5m".
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{n}d"
 msgstr "{n}h"
 
 #. TRANSLATORS: hours in a short battery time such as "2h 5m".
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{n}h"
 msgstr "{n}j"
 
 #. TRANSLATORS: minutes in a short battery time such as "2h 5m".
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{n}m"
 msgstr "{n}m"
 
 #. TRANSLATORS: when the battery was last fully charged, under a minute ago.
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 msgid "now"
 msgstr "baru saja"
 
-#: cutefish-services/battery/battery.cpp
+#: properdesktop-services/battery/battery.cpp
 #, python-brace-format
 msgid "{time} ago"
 msgstr "{time} yang lalu"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Low Battery"
 msgstr "Baterai Lemah"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Battery Critically Low"
 msgstr "Baterai Sangat Lemah"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Battery Empty"
 msgstr "Baterai Habis"
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 #, python-brace-format
 msgid "{percent}% of battery remaining ({time})."
 msgstr "Baterai tersisa {percent}% ({time})."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 #, python-brace-format
 msgid "{percent}% of battery remaining."
 msgstr "Baterai tersisa {percent}%."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Save your work and connect to power. The computer will shut down when the battery is nearly empty."
 msgstr "Simpan pekerjaan Anda dan sambungkan ke daya. Komputer akan dimatikan saat baterai hampir habis."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Connect to power. The computer will hibernate when the battery is nearly empty."
 msgstr "Sambungkan ke daya. Komputer akan berhibernasi saat baterai hampir habis."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Save your work and connect to power. The computer will go to sleep when the battery is nearly empty."
 msgstr "Simpan pekerjaan Anda dan sambungkan ke daya. Komputer akan tidur saat baterai hampir habis."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Connect to power soon."
 msgstr "Segera sambungkan ke daya."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "The computer is about to shut down. Connect to power to keep it running."
 msgstr "Komputer akan segera dimatikan. Sambungkan ke daya agar tetap menyala."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "The computer is about to hibernate. Connect to power to keep it running."
 msgstr "Komputer akan segera berhibernasi. Sambungkan ke daya agar tetap menyala."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "The computer is about to go to sleep. Connect to power to keep it running."
 msgstr "Komputer akan segera tidur. Sambungkan ke daya agar tetap menyala."
 
-#: cutefish-services/battery/batterywarning.cpp
+#: properdesktop-services/battery/batterywarning.cpp
 msgid "Connect to power now."
 msgstr "Sambungkan ke daya sekarang."
 
-#: cutefish-services/bundlerunner/installdialog.cpp
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Cancel"
 msgstr "Batal"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Install"
 msgstr "Instal"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "OK"
 msgstr "OK"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 #, python-brace-format
 msgid "To open “{name}”, Reef has to be downloaded and installed."
 msgstr "Untuk membuka “{name}”, Reef harus diunduh dan diinstal."
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Installing…"
 msgstr "Menginstal…"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Downloading…"
 msgstr "Mengunduh…"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Looking for Reef…"
 msgstr "Mencari Reef…"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Reef is not available for this computer."
 msgstr "Reef tidak tersedia untuk komputer ini."
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Reef could not be installed."
 msgstr "Reef tidak dapat diinstal."
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Stop"
 msgstr "Hentikan"
 
-#: cutefish-services/bundlerunner/installdialog.cpp
+#: properdesktop-services/bundlerunner/installdialog.cpp
 msgid "Install Reef"
 msgstr "Instal Reef"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 #, python-brace-format
 msgid "“{name}” quit unexpectedly"
 msgstr "“{name}” keluar secara tak terduga"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "Close"
 msgstr "Tutup"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "Reopen"
 msgstr "Buka Ulang"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 #, python-brace-format
 msgid "Reason: {reason}"
 msgstr "Alasan: {reason}"
 
-#: cutefish-services/crash/crashdialog.cpp
+#: properdesktop-services/crash/crashdialog.cpp
 msgid "It is restarted automatically."
 msgstr "Aplikasi ini dimulai ulang secara otomatis."
 
-#: cutefish-services/crash/crashmanager.cpp
+#: properdesktop-services/crash/crashmanager.cpp
 msgid "Application Runtime"
 msgstr "Runtime Aplikasi"
 
-#: cutefish-services/locale/language.cpp
+#: properdesktop-services/locale/language.cpp
 msgid "Some applications may need to be restarted for the change to take effect."
 msgstr "Beberapa aplikasi mungkin perlu dimulai ulang agar perubahan diterapkan."
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 #, python-brace-format
 msgid "Share your screen with “{name}”"
 msgstr "Bagikan layar Anda dengan “{name}”"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Choose a display or a window. What is shown on it will be visible to the application until it stops sharing."
 msgstr "Pilih layar atau jendela. Apa yang ditampilkan di sana akan terlihat oleh aplikasi hingga aplikasi berhenti berbagi."
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Choose a window. Its contents will be visible to the application until it stops sharing."
 msgstr "Pilih jendela. Isinya akan terlihat oleh aplikasi hingga aplikasi berhenti berbagi."
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Choose a display. Everything shown on it, including other windows, will be visible to the application until it stops sharing."
 msgstr "Pilih layar. Semua yang ditampilkan di sana, termasuk jendela lain, akan terlihat oleh aplikasi hingga aplikasi berhenti berbagi."
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Share"
 msgstr "Bagikan"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Windows"
 msgstr "Jendela"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Displays"
 msgstr "Layar"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Always allow this app"
 msgstr "Selalu izinkan aplikasi ini"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Let “An app” control this computer?"
 msgstr "Izinkan “Sebuah aplikasi” mengendalikan komputer ini?"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 #, python-brace-format
 msgid "Let “{name}” control this computer?"
 msgstr "Izinkan “{name}” mengendalikan komputer ini?"
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "It will see your screen and use the pointer and keyboard until you stop it with the Stop button in the menu bar. Using the pointer or keyboard yourself pauses it, and it cannot answer system dialogs like this one."
 msgstr "Aplikasi ini akan melihat layar Anda serta menggunakan penunjuk dan keyboard hingga Anda menghentikannya dengan tombol Berhenti di bilah menu. Jika Anda sendiri menggunakan penunjuk atau keyboard, aplikasi akan dijeda, dan aplikasi tidak dapat menjawab dialog sistem seperti ini."
 
-#: cutefish-services/permissions/permissionprompt.cpp
+#: properdesktop-services/permissions/permissionprompt.cpp
 msgid "Allow"
 msgstr "Izinkan"
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 msgid "Updates Installed"
 msgstr "Pembaruan Terinstal"
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 msgid "Restart the computer to finish installing them."
 msgstr "Mulai ulang komputer untuk menyelesaikan penginstalannya."
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 msgid "Software Updates Available"
 msgstr "Pembaruan Perangkat Lunak Tersedia"
 
-#: cutefish-services/softwareupdate/softwareupdate.cpp
+#: properdesktop-services/softwareupdate/softwareupdate.cpp
 #, python-brace-format
 msgid "{n} update is available for this computer."
 msgid_plural "{n} updates are available for this computer."
@@ -301,10 +301,10 @@ msgstr "{name} tidak mau keluar."
 msgid "System"
 msgstr "Sistem"
 
-#: session/cutefish-wayland.desktop
-msgid "Cutefish (Wayland)"
-msgstr "Cutefish (Wayland)"
+#: session/properdesktop-wayland.desktop
+msgid "Proper Desktop (Wayland)"
+msgstr "Proper Desktop (Wayland)"
 
-#: session/cutefish-wayland.desktop
-msgid "Cutefish desktop session"
-msgstr "Sesi desktop Cutefish"
+#: session/properdesktop-wayland.desktop
+msgid "Proper Desktop session"
+msgstr "Sesi desktop Proper Desktop"

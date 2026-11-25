@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace cutefish::core {
+namespace properdesktop::core {
 
 // A process environment by variable name.
 using Environment = std::map<std::string, std::string>;
@@ -17,4 +17,4 @@ Environment processEnvironment();
 // `NAME=value` entries, for base::Process::setEnvironment() and execve().
 std::vector<std::string> environmentEntries(const Environment& environment);
 
-} // namespace cutefish::core
+} // namespace properdesktop::core
