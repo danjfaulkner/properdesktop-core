@@ -216,6 +216,12 @@ void Application::initEnvironments()
     setenv("DESKTOP_SESSION", "Cutefish", 1);
     setenv("XDG_CURRENT_DESKTOP", "Cutefish", 1);
     setenv("XDG_SESSION_DESKTOP", "Cutefish", 1);
+    // Chromium and Electron apps (Claude, VS Code, the browsers) pick their password store from the
+    // desktop's name and know no "Cutefish": they would keep secrets in plain text and say there is
+    // no keychain. This older GNOME marker, which they still read when the names above say nothing
+    // to them, sends them to the Secret Service (GNOME Keyring) instead. It also has them take the
+    // window button layout from the session's GTK settings, which put the buttons on the right.
+    setenv("GNOME_DESKTOP_SESSION_ID", "this-is-deprecated", 1);
 
     // GLib's plain-text backend: cutefish-services writes the GTK appearance keys into
     // ~/.config/glib-2.0/settings/keyfile, and no dconf daemon is needed.
