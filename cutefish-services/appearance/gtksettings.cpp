@@ -10,10 +10,11 @@
 #include "common/gsettings_keyfile.h"
 #include "log.h"
 
-// Window buttons for applications that draw their own (GTK, Chromium, Electron): on the right, in
-// the order most of them are made for. Cutefish's own applications draw theirs on the left
-// whatever this says.
-static constexpr const char *kButtonLayout = ":minimize,maximize,close";
+// GTK's button layout for applications that draw their own window buttons (GTK, Chromium, Electron).
+static const char *buttonLayout(bool onRight)
+{
+    return onRight ? ":minimize,maximize,close" : "close,minimize,maximize:";
+}
 
 using namespace cutefish::base;
 using namespace cutefish::base::strings;
@@ -51,7 +52,7 @@ void writeGtkSettings(const GtkSettings &gtk)
         settings.setValue("Settings/gtk-cursor-theme-size", gtk.cursorSize);
         settings.setValue("Settings/gtk-enable-animations", gtk.animations);
         settings.setValue("Settings/gtk-theme-name", gtkTheme);
-        settings.setValue("Settings/gtk-decoration-layout", kButtonLayout);
+        settings.setValue("Settings/gtk-decoration-layout", buttonLayout(gtk.buttonsOnRight));
         settings.sync();
     }
 
@@ -74,7 +75,7 @@ void writeGtkSettings(const GtkSettings &gtk)
             {"enable-animations", gtk.animations},
     });
     gsettings::writeGroup("org/gnome/desktop/wm/preferences", {
-            {"button-layout", std::string(kButtonLayout)},
+            {"button-layout", std::string(buttonLayout(gtk.buttonsOnRight))},
     });
 }
 

@@ -16,6 +16,9 @@
     <method name="setColoredWindowControls">
         <arg name="coloredWindowControls" type="b" direction="in"/>
     </method>
+    <method name="setWindowButtonsOnRight">
+        <arg name="windowButtonsOnRight" type="b" direction="in"/>
+    </method>
     <method name="setSystemFont">
         <arg name="fontFamily" type="s" direction="in"/>
     </method>
@@ -71,6 +74,7 @@
     <property name="continuousCorners" type="b" access="read"/>
     <property name="reduceTransparency" type="b" access="read"/>
     <property name="coloredWindowControls" type="b" access="read"/>
+    <property name="windowButtonsOnRight" type="b" access="read"/>
     <property name="systemFont" type="s" access="read"/>
     <property name="systemFixedFont" type="s" access="read"/>
     <property name="systemFontPointSize" type="d" access="read"/>
@@ -105,6 +109,9 @@
         <arg type="b"/>
     </signal>
     <signal name="coloredWindowControlsChanged">
+        <arg type="b"/>
+    </signal>
+    <signal name="windowButtonsOnRightChanged">
         <arg type="b"/>
     </signal>
     <signal name="accentColorChanged">

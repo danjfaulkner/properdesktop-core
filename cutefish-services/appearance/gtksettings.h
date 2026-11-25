@@ -16,6 +16,10 @@ struct GtkSettings
     std::string cursorTheme;
     int cursorSize = 24;
     bool animations = true;
+    // Window buttons of applications that draw their own: on the right (minimize, maximize,
+    // close) or on the left (close, minimize, maximize). Cutefish's own applications keep theirs on
+    // the left either way.
+    bool buttonsOnRight = true;
 };
 
 // Mirrors the system appearance into GTK's config: settings.ini for Xwayland clients and the

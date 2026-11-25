@@ -49,6 +49,7 @@ ThemeManager::ThemeManager(Settings &settings, dbus::Connection *session, dbus::
     m_continuousCorners = m_settings.boolValue("Appearance/ContinuousCorners", true);
     m_reduceTransparency = m_settings.boolValue("Appearance/ReduceTransparency", false);
     m_coloredWindowControls = m_settings.boolValue("Appearance/ColoredWindowControls", false);
+    m_windowButtonsOnRight = m_settings.boolValue("Appearance/WindowButtonsOnRight", true);
     m_accentColor = int(m_settings.intValue("Appearance/AccentColor", 0));
     m_cursorTheme = m_settings.stringValue("Appearance/CursorTheme", "default");
     m_cursorSize = int(m_settings.intValue("Appearance/CursorSize", 24));
@@ -106,6 +107,8 @@ bool ThemeManager::publish()
                 {{"reduceTransparency"}, {}});
     o.addMethod("setColoredWindowControls", [this](bool value) { setColoredWindowControls(value); },
                 {{"coloredWindowControls"}, {}});
+    o.addMethod("setWindowButtonsOnRight", [this](bool value) { setWindowButtonsOnRight(value); },
+                {{"windowButtonsOnRight"}, {}});
     o.addMethod("setSystemFont", [this](const std::string &value) { setSystemFont(value); }, {{"fontFamily"}, {}});
     o.addMethod("setSystemFixedFont", [this](const std::string &value) { setSystemFixedFont(value); },
                 {{"fontFamily"}, {}});
@@ -137,6 +140,7 @@ bool ThemeManager::publish()
     o.addProperty("continuousCorners", [this] { return continuousCorners(); });
     o.addProperty("reduceTransparency", [this] { return reduceTransparency(); });
     o.addProperty("coloredWindowControls", [this] { return coloredWindowControls(); });
+    o.addProperty("windowButtonsOnRight", [this] { return windowButtonsOnRight(); });
     o.addProperty("systemFont", [this] { return systemFont(); });
     o.addProperty("systemFixedFont", [this] { return systemFixedFont(); });
     o.addProperty("systemFontPointSize", [this] { return systemFontPointSize(); });
@@ -159,6 +163,7 @@ bool ThemeManager::publish()
     o.addSignal("continuousCornersChanged", "b");
     o.addSignal("reduceTransparencyChanged", "b");
     o.addSignal("coloredWindowControlsChanged", "b");
+    o.addSignal("windowButtonsOnRightChanged", "b");
     o.addSignal("accentColorChanged", "i");
     o.addSignal("backgroundTypeChanged", "");
     o.addSignal("backgroundColorChanged", "");
@@ -251,6 +256,24 @@ void ThemeManager::setColoredWindowControls(bool value)
     write("ColoredWindowControls", m_coloredWindowControls);
 
     emitSignal("coloredWindowControlsChanged", m_coloredWindowControls);
+}
+
+bool ThemeManager::windowButtonsOnRight() const
+{
+    return m_windowButtonsOnRight;
+}
+
+void ThemeManager::setWindowButtonsOnRight(bool value)
+{
+    if (m_windowButtonsOnRight == value)
+        return;
+
+    m_windowButtonsOnRight = value;
+    write("WindowButtonsOnRight", m_windowButtonsOnRight);
+    // GTK apps follow the keyfile as it changes; Chromium and Electron ones when they next open.
+    updateGtk3Config();
+
+    emitSignal("windowButtonsOnRightChanged", m_windowButtonsOnRight);
 }
 
 int ThemeManager::accentColor()
@@ -420,6 +443,7 @@ void ThemeManager::updateGtk3Config()
     gtk.cursorTheme = m_cursorTheme;
     gtk.cursorSize = m_cursorSize;
     gtk.animations = m_powerProfiles->activeProfile() != "power-saver";
+    gtk.buttonsOnRight = m_windowButtonsOnRight;
     writeGtkSettings(gtk);
 }
 

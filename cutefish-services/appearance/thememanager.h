@@ -50,6 +50,9 @@ public:
     void setReduceTransparency(bool value);
 
     bool coloredWindowControls() const;
+    // Where applications that draw their own window buttons put them.
+    bool windowButtonsOnRight() const;
+    void setWindowButtonsOnRight(bool value);
     void setColoredWindowControls(bool value);
 
     std::string systemFont();
@@ -117,6 +120,7 @@ private:
     bool m_continuousCorners = true;
     bool m_reduceTransparency = false;
     bool m_coloredWindowControls = false;
+    bool m_windowButtonsOnRight = true;
     int m_accentColor = 0;
 
     std::string m_cursorTheme;
